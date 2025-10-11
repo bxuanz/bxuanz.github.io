@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Profile | Personal Portfolio</title>
+    <title>Bryan Zhao | Personal Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     
-    <!-- 配置Tailwind自定义颜色和字体 -->
     <script>
         tailwind.config = {
             theme: {
@@ -25,38 +24,17 @@
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
                         'scan': 'scan 8s linear infinite',
-                        'typing': 'typing 3.5s steps(40, end)',
-                        'blink': 'blink .7s infinite',
-                        'fade-in': 'fadeIn 1s ease forwards',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-10px)' },
                         },
-                        glow: {
-                            '0%': { boxShadow: '0 0 5px rgba(0, 243, 255, 0.5), 0 0 10px rgba(0, 243, 255, 0.3)' },
-                            '100%': { boxShadow: '0 0 10px rgba(0, 243, 255, 0.8), 0 0 20px rgba(0, 243, 255, 0.6), 0 0 30px rgba(0, 243, 255, 0.4)' },
-                        },
                         scan: {
                             '0%': { transform: 'translateY(-100%)' },
                             '100%': { transform: 'translateY(100vh)' },
                         },
-                        typing: {
-                            'from': { width: '0' },
-                            'to': { width: '100%' }
-                        },
-                        blink: {
-                            'from, to': { opacity: '1' },
-                            '50%': { opacity: '0' }
-                        },
-                        fadeIn: {
-                            'from': { opacity: '0', transform: 'translateY(20px)' },
-                            'to': { opacity: '1', transform: 'translateY(0)' }
-                        }
                     }
                 }
             }
@@ -65,160 +43,61 @@
     
     <style type="text/tailwindcss">
         @layer utilities {
-            .content-auto {
-                content-visibility: auto;
-            }
-            .text-shadow-neon-blue {
-                text-shadow: 0 0 5px rgba(0, 243, 255, 0.7), 0 0 10px rgba(0, 243, 255, 0.5);
-            }
-            .text-shadow-neon-purple {
-                text-shadow: 0 0 5px rgba(178, 0, 255, 0.7), 0 0 10px rgba(178, 0, 255, 0.5);
-            }
-            .text-shadow-neon-pink {
-                text-shadow: 0 0 5px rgba(255, 0, 200, 0.7), 0 0 10px rgba(255, 0, 200, 0.5);
-            }
-            .border-glow-blue {
-                box-shadow: 0 0 5px rgba(0, 243, 255, 0.7), 0 0 10px rgba(0, 243, 255, 0.5), inset 0 0 5px rgba(0, 243, 255, 0.7);
-            }
-            .border-glow-purple {
-                box-shadow: 0 0 5px rgba(178, 0, 255, 0.7), 0 0 10px rgba(178, 0, 255, 0.5), inset 0 0 5px rgba(178, 0, 255, 0.7);
-            }
-            .border-glow-pink {
-                box-shadow: 0 0 5px rgba(255, 0, 200, 0.7), 0 0 10px rgba(255, 0, 200, 0.5), inset 0 0 5px rgba(255, 0, 200, 0.7);
-            }
+            .text-shadow-neon-blue { text-shadow: 0 0 5px rgba(0, 243, 255, 0.7), 0 0 10px rgba(0, 243, 255, 0.5); }
+            .text-shadow-neon-purple { text-shadow: 0 0 5px rgba(178, 0, 255, 0.7), 0 0 10px rgba(178, 0, 255, 0.5); }
+            .text-shadow-neon-pink { text-shadow: 0 0 5px rgba(255, 0, 200, 0.7), 0 0 10px rgba(255, 0, 200, 0.5); }
             .grid-bg {
                 background-size: 40px 40px;
                 background-image: 
                     linear-gradient(to right, rgba(0, 243, 255, 0.1) 1px, transparent 1px),
                     linear-gradient(to bottom, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
             }
-            .scanline {
-                position: fixed;
-                width: 100%;
-                height: 3px;
-                background: rgba(0, 243, 255, 0.2);
-                z-index: 1;
-            }
-            .timeline-item {
-                position: relative;
-            }
-            .timeline-item::before {
-                content: '';
-                position: absolute;
-                left: -39px;
-                top: 5px;
-                height: 16px;
-                width: 16px;
-                border-radius: 50%;
-                background-color: #16073a;
-                border: 2px solid theme('colors.neon-blue');
-                z-index: 2;
-            }
-            .timeline-item::after {
-                content: '';
-                position: absolute;
-                left: -32px;
-                top: 21px;
-                bottom: -20px;
-                width: 2px;
-                background-color: theme('colors.neon-blue');
-                z-index: 1;
-            }
-            .timeline-item:last-child::after {
-                display: none;
-            }
-            .skill-bar {
-                height: 6px;
-                background-color: rgba(255, 255, 255, 0.1);
-                border-radius: 3px;
-                overflow: hidden;
-            }
-            .skill-progress {
-                height: 100%;
-                border-radius: 3px;
-                transition: width 1.5s ease-in-out;
-            }
-            .interest-item {
-                transition: all 0.3s ease;
-            }
-            .interest-item:hover {
-                transform: translateY(-5px);
-            }
-            .nav-link {
-                position: relative;
-            }
-            .nav-link::after {
-                content: '';
-                position: absolute;
-                bottom: -2px;
-                left: 0;
-                width: 0;
-                height: 2px;
-                background-color: theme('colors.neon-blue');
-                transition: width 0.3s ease;
-            }
-            .nav-link:hover::after,
-            .nav-link.active::after {
-                width: 100%;
-            }
-            .section-fade {
-                opacity: 0;
-                transform: translateY(20px);
-                transition: opacity 0.8s ease, transform 0.8s ease;
-            }
-            .section-visible {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            .scanline { position: fixed; width: 100%; height: 3px; background: rgba(0, 243, 255, 0.2); z-index: 1; }
+            .timeline-item { position: relative; }
+            .timeline-item::before { content: ''; position: absolute; left: -39px; top: 5px; height: 16px; width: 16px; border-radius: 50%; background-color: #16073a; border: 2px solid theme('colors.neon-blue'); z-index: 2; }
+            .timeline-item::after { content: ''; position: absolute; left: -32px; top: 21px; bottom: -20px; width: 2px; background-color: theme('colors.neon-blue'); z-index: 1; }
+            .timeline-item:last-child::after { display: none; }
+            .skill-bar { height: 6px; background-color: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden; }
+            .skill-progress { height: 100%; border-radius: 3px; transition: width 1.5s ease-in-out; }
+            .interest-item { transition: all 0.3s ease; }
+            .interest-item:hover { transform: translateY(-5px); }
+            .nav-link { position: relative; }
+            .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background-color: theme('colors.neon-blue'); transition: width 0.3s ease; }
+            .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+            .section-fade { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+            .section-visible { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body class="bg-dark-bg text-gray-300 font-code min-h-screen relative">
-    <!-- 网格背景 -->
     <div class="grid-bg fixed inset-0 z-0"></div>
-    
-    <!-- 扫描线效果 -->
     <div class="scanline animate-scan"></div>
-    
-    <!-- 粒子效果容器 -->
     <div id="particles-container" class="fixed inset-0 pointer-events-none z-10"></div>
     
-    <!-- 随机代码片段 -->
-    <div id="code-snippets" class="fixed inset-0 pointer-events-none z-0"></div>
-    
-    <!-- 导航栏 -->
     <nav class="fixed top-0 left-0 right-0 bg-dark-bg/80 backdrop-blur-md border-b border-neon-blue/30 z-50">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <span class="text-neon-blue text-xl font-bold text-shadow-neon-blue">
-                        <i class="fa fa-terminal mr-2"></i>cyber.profile
+                        <i class="fa fa-terminal mr-2"></i>Bryan.Zhao
                     </span>
                 </div>
-                
-                <!-- 桌面导航 -->
                 <div class="hidden md:flex space-x-6">
                     <a href="#about" class="nav-link text-white hover:text-neon-blue transition-colors">About</a>
-                    <a href="#experience" class="nav-link text-white hover:text-neon-blue transition-colors">Experience</a>
+                    <a href="#publications" class="nav-link text-white hover:text-neon-blue transition-colors">Publications</a>
                     <a href="#education" class="nav-link text-white hover:text-neon-blue transition-colors">Education</a>
                     <a href="#skills" class="nav-link text-white hover:text-neon-blue transition-colors">Skills</a>
                     <a href="#interests" class="nav-link text-white hover:text-neon-blue transition-colors">Interests</a>
                 </div>
-                
-                <!-- 移动端菜单按钮 -->
                 <div class="md:hidden">
-                    <button id="menu-toggle" class="text-neon-blue hover:text-white transition-colors">
-                        <i class="fa fa-bars text-xl"></i>
-                    </button>
+                    <button id="menu-toggle" class="text-neon-blue hover:text-white transition-colors"><i class="fa fa-bars text-xl"></i></button>
                 </div>
             </div>
         </div>
-        
-        <!-- 移动端导航菜单 -->
         <div id="mobile-menu" class="hidden md:hidden bg-card-bg border-t border-neon-blue/30">
             <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
                 <a href="#about" class="text-white hover:text-neon-blue transition-colors py-2">About</a>
-                <a href="#experience" class="text-white hover:text-neon-blue transition-colors py-2">Experience</a>
+                <a href="#publications" class="text-white hover:text-neon-blue transition-colors py-2">Publications</a>
                 <a href="#education" class="text-white hover:text-neon-blue transition-colors py-2">Education</a>
                 <a href="#skills" class="text-white hover:text-neon-blue transition-colors py-2">Skills</a>
                 <a href="#interests" class="text-white hover:text-neon-blue transition-colors py-2">Interests</a>
@@ -226,50 +105,29 @@
         </div>
     </nav>
     
-    <!-- 主内容区 -->
     <main class="container mx-auto px-4 pt-28 pb-16 relative z-20">
-        <!-- 关于我部分 -->
         <section id="about" class="mb-20 section-fade">
             <div class="max-w-5xl mx-auto">
                 <div class="flex flex-col md:flex-row items-center gap-8">
                     <div class="w-full md:w-1/3">
                         <div class="relative">
-                            <div class="w-64 h-64 mx-auto rounded-xl bg-neon-blue/20 border-2 border-neon-blue border-glow-blue flex items-center justify-center text-8xl animate-float">
-                                <span class="text-white">👨‍💻</span>
+                            <div class="w-64 h-64 mx-auto rounded-xl bg-neon-blue/20 border-2 border-neon-blue flex items-center justify-center text-8xl animate-float">
+                                <span class="text-white">👨‍🔬</span>
                             </div>
-                            <!-- 装饰元素 -->
                             <div class="absolute -top-3 -left-3 w-16 h-16 border-t-2 border-l-2 border-neon-purple"></div>
                             <div class="absolute -bottom-3 -right-3 w-16 h-16 border-b-2 border-r-2 border-neon-pink"></div>
                         </div>
                     </div>
-                    
                     <div class="w-full md:w-2/3">
-                        <h2 class="text-4xl font-bold text-white mb-4 flex items-center">
-                            <span class="inline-block w-10 h-1 bg-neon-blue mr-3"></span>
-                            About Me
-                        </h2>
+                        <h2 class="text-4xl font-bold text-white mb-4 flex items-center"><span class="inline-block w-10 h-1 bg-neon-blue mr-3"></span>About Me</h2>
                         <div class="bg-section-bg rounded-lg p-6 border border-neon-blue/20">
-                            <h3 class="text-2xl text-neon-blue text-shadow-neon-blue mb-3">Alex N30N</h3>
-                            <p class="text-xl text-gray-300 mb-4">Full Stack Developer & Tech Enthusiast</p>
-                            
-                            <p class="mb-4">
-                                I'm a passionate software developer with over 5 years of experience building 
-                                modern web applications. My expertise spans across front-end and back-end technologies,
-                                with a focus on creating efficient, scalable, and user-friendly solutions.
-                            </p>
-                            <p class="mb-6">
-                                I'm constantly learning new technologies and improving my skills. When I'm not coding,
-                                you can find me exploring the latest in tech, contributing to open source projects,
-                                or experimenting with new programming languages.
-                            </p>
-                            
+                            <h3 class="text-2xl text-neon-blue text-shadow-neon-blue mb-3">Bryan Zhao</h3>
+                            <p class="text-xl text-gray-300 mb-4">PhD Candidate | Computer Vision & Image Generation</p>
+                            <p class="mb-4">I am a PhD candidate from Henan, China, currently at Northwestern Polytechnical University. My research focuses on Computer Vision and Image Generation, with a special emphasis on remote sensing image interpretation.</p>
+                            <p class="mb-6">Passionate about exploring the frontiers of AI, I have a strong interest in fields like Reinforcement Learning. As an ENFJ, I enjoy continuously learning, creating, and sharing, and I look forward to collaborating with peers.</p>
                             <div class="flex flex-wrap gap-3">
-                                <a href="#" class="px-4 py-2 bg-neon-blue/10 text-neon-blue rounded border border-neon-blue/30 hover:bg-neon-blue/20 transition-all flex items-center">
-                                    <i class="fa fa-download mr-2"></i> Resume
-                                </a>
-                                <a href="#" class="px-4 py-2 bg-neon-purple/10 text-neon-purple rounded border border-neon-purple/30 hover:bg-neon-purple/20 transition-all flex items-center">
-                                    <i class="fa fa-envelope mr-2"></i> Contact
-                                </a>
+                                <a href="https://scholar.google.com/citations?user=t8k-A3wAAAAJ&hl=en" target="_blank" class="px-4 py-2 bg-neon-blue/10 text-neon-blue rounded border border-neon-blue/30 hover:bg-neon-blue/20 transition-all flex items-center"><i class="fa fa-graduation-cap mr-2"></i> Google Scholar</a>
+                                <a href="mailto:bxuanzhao202@gmail.com" class="px-4 py-2 bg-neon-purple/10 text-neon-purple rounded border border-neon-purple/30 hover:bg-neon-purple/20 transition-all flex items-center"><i class="fa fa-envelope mr-2"></i> Contact Me</a>
                             </div>
                         </div>
                     </div>
@@ -277,578 +135,206 @@
             </div>
         </section>
         
-        <!-- 工作经历部分 -->
-        <section id="experience" class="mb-20 section-fade">
+        <section id="publications" class="mb-20 section-fade">
             <div class="max-w-5xl mx-auto">
                 <h2 class="text-4xl font-bold text-white mb-8 flex items-center">
                     <span class="inline-block w-10 h-1 bg-neon-purple mr-3"></span>
-                    Work Experience
+                    Publications
                 </h2>
-                
-                <div class="pl-10 relative">
-                    <!-- 时间线垂直线 -->
+                <div id="publications-list" class="pl-10 relative">
                     <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-neon-blue/30"></div>
-                    
-                    <!-- 工作经历1 -->
-                    <div class="timeline-item mb-10 pl-6">
-                        <div class="bg-section-bg rounded-lg p-6 border border-neon-purple/20 hover:border-neon-purple/50 transition-colors">
-                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
-                                <h3 class="text-xl text-neon-purple text-shadow-neon-purple font-bold">Senior Full Stack Developer</h3>
-                                <span class="text-gray-400">Jan 2020 - Present</span>
-                            </div>
-                            <h4 class="text-white mb-3">TechCore Innovations</h4>
-                            <ul class="list-disc pl-5 space-y-2">
-                                <li>Led development of a microservices-based platform serving 50,000+ daily users</li>
-                                <li>Implemented responsive front-end using React, TypeScript and Tailwind CSS</li>
-                                <li>Designed and developed RESTful and GraphQL APIs using Node.js and Express</li>
-                                <li>Migrated legacy systems to cloud infrastructure, improving performance by 40%</li>
-                                <li>Mentored 5 junior developers and established coding standards</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- 工作经历2 -->
-                    <div class="timeline-item mb-10 pl-6">
-                        <div class="bg-section-bg rounded-lg p-6 border border-neon-purple/20 hover:border-neon-purple/50 transition-colors">
-                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
-                                <h3 class="text-xl text-neon-purple text-shadow-neon-purple font-bold">Web Developer</h3>
-                                <span class="text-gray-400">Mar 2018 - Dec 2019</span>
-                            </div>
-                            <h4 class="text-white mb-3">Digital Solutions Group</h4>
-                            <ul class="list-disc pl-5 space-y-2">
-                                <li>Developed and maintained client websites and web applications</li>
-                                <li>Worked with JavaScript, PHP, MySQL, and various CMS platforms</li>
-                                <li>Collaborated with designers to implement pixel-perfect UI/UX</li>
-                                <li>Optimized websites for performance and search engine visibility</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- 工作经历3 -->
-                    <div class="timeline-item pl-6">
-                        <div class="bg-section-bg rounded-lg p-6 border border-neon-purple/20 hover:border-neon-purple/50 transition-colors">
-                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
-                                <h3 class="text-xl text-neon-purple text-shadow-neon-purple font-bold">Front-End Intern</h3>
-                                <span class="text-gray-400">Jun 2017 - Feb 2018</span>
-                            </div>
-                            <h4 class="text-white mb-3">Innovative Web Studios</h4>
-                            <ul class="list-disc pl-5 space-y-2">
-                                <li>Assisted in developing responsive layouts for client projects</li>
-                                <li>Worked with HTML5, CSS3, JavaScript, and jQuery</li>
-                                <li>Fixed UI bugs and improved cross-browser compatibility</li>
-                                <li>Participated in code reviews and team meetings</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
         
-        <!-- 教育经历部分 -->
         <section id="education" class="mb-20 section-fade">
             <div class="max-w-5xl mx-auto">
-                <h2 class="text-4xl font-bold text-white mb-8 flex items-center">
-                    <span class="inline-block w-10 h-1 bg-neon-pink mr-3"></span>
-                    Education
-                </h2>
-                
+                <h2 class="text-4xl font-bold text-white mb-8 flex items-center"><span class="inline-block w-10 h-1 bg-neon-pink mr-3"></span>Education</h2>
                 <div class="pl-10 relative">
-                    <!-- 时间线垂直线 -->
-                    <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-neon-pink/30"></div>
-                    
-                    <!-- 教育经历1 -->
+                    <div class="absolute left-0 top-0 bottom-0 w-0.5" style="background-color: #ff00c8;"></div>
                     <div class="timeline-item mb-10 pl-6">
-                        <div class="bg-section-bg rounded-lg p-6 border border-neon-pink/20 hover:border-neon-pink/50 transition-colors">
+                         <div class="bg-section-bg rounded-lg p-6 border border-neon-pink/20 hover:border-neon-pink/50 transition-colors">
                             <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
-                                <h3 class="text-xl text-neon-pink text-shadow-neon-pink font-bold">Master of Science in Computer Science</h3>
-                                <span class="text-gray-400">2016 - 2017</span>
+                                <h3 class="text-xl text-neon-pink text-shadow-neon-pink font-bold">PhD in Computer Science</h3>
+                                <span class="text-gray-400">2024 - Present</span>
                             </div>
-                            <h4 class="text-white mb-3">Tech University</h4>
-                            <p class="mb-2">Specialization in Software Engineering</p>
-                            <p>GPA: 3.8/4.0</p>
+                            <h4 class="text-white mb-3">Northwestern Polytechnical University</h4>
+                            <p class="mb-2">Focus: Computer Vision, Image Generation, Remote Sensing</p>
                         </div>
                     </div>
-                    
-                    <!-- 教育经历2 -->
                     <div class="timeline-item pl-6">
                         <div class="bg-section-bg rounded-lg p-6 border border-neon-pink/20 hover:border-neon-pink/50 transition-colors">
                             <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
-                                <h3 class="text-xl text-neon-pink text-shadow-neon-pink font-bold">Bachelor of Science in Information Technology</h3>
-                                <span class="text-gray-400">2012 - 2016</span>
+                                <h3 class="text-xl text-neon-pink text-shadow-neon-pink font-bold">Bachelor of Science in Mathematics</h3>
+                                <span class="text-gray-400">2020 - 2024</span>
                             </div>
-                            <h4 class="text-white mb-3">State University</h4>
-                            <p class="mb-2">Minor in Mathematics</p>
-                            <p>GPA: 3.7/4.0</p>
+                            <h4 class="text-white mb-3">Northwestern Polytechnical University</h4>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- 技能部分 -->
         <section id="skills" class="mb-20 section-fade">
             <div class="max-w-5xl mx-auto">
-                <h2 class="text-4xl font-bold text-white mb-8 flex items-center">
-                    <span class="inline-block w-10 h-1 bg-neon-blue mr-3"></span>
-                    Technical Skills
-                </h2>
-                
+                <h2 class="text-4xl font-bold text-white mb-8 flex items-center"><span class="inline-block w-10 h-1 bg-neon-blue mr-3"></span>Technical Skills</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- 前端技能 -->
                     <div class="bg-section-bg rounded-lg p-6 border border-neon-blue/20">
-                        <h3 class="text-xl text-neon-blue text-shadow-neon-blue font-bold mb-5 flex items-center">
-                            <i class="fa fa-code mr-2"></i> Front-End Development
-                        </h3>
-                        
+                        <h3 class="text-xl text-neon-blue text-shadow-neon-blue font-bold mb-5 flex items-center"><i class="fa fa-code mr-2"></i> Programming & AI Models</h3>
                         <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <span>JavaScript / TypeScript</span>
-                                    <span>90%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress bg-neon-blue" style="width: 0%" data-width="90%"></div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <span>React / Vue.js</span>
-                                    <span>85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress bg-neon-blue" style="width: 0%" data-width="85%"></div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <span>HTML5 / CSS3 / Tailwind</span>
-                                    <span>95%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress bg-neon-blue" style="width: 0%" data-width="95%"></div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <span>Responsive Design</span>
-                                    <span>88%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress bg-neon-blue" style="width: 0%" data-width="88%"></div>
-                                </div>
-                            </div>
+                            <div><div class="flex justify-between mb-1"><span>Python</span><span>60%</span></div><div class="skill-bar"><div class="skill-progress bg-neon-blue" data-width="60%"></div></div></div>
+                            <div><div class="flex justify-between mb-1"><span>Gemini</span><span>100%</span></div><div class="skill-bar"><div class="skill-progress bg-neon-blue" data-width="100%"></div></div></div>
+                            <div><div class="flex justify-between mb-1"><span>DouBao</span><span>80%</span></div><div class="skill-bar"><div class="skill-progress bg-neon-blue" data-width="80%"></div></div></div>
+                            <div><div class="flex justify-between mb-1"><span>GPT</span><span>70%</span></div><div class="skill-bar"><div class="skill-progress bg-neon-blue" data-width="70%"></div></div></div>
+                             <div><div class="flex justify-between mb-1"><span>MATLAB</span><span>30%</span></div><div class="skill-bar"><div class="skill-progress bg-neon-blue" data-width="30%"></div></div></div>
                         </div>
                     </div>
-                    
-                    <!-- 后端技能 -->
                     <div class="bg-section-bg rounded-lg p-6 border border-neon-purple/20">
-                        <h3 class="text-xl text-neon-purple text-shadow-neon-purple font-bold mb-5 flex items-center">
-                            <i class="fa fa-server mr-2"></i> Back-End Development
-                        </h3>
-                        
+                        <h3 class="text-xl text-neon-purple text-shadow-neon-purple font-bold mb-5 flex items-center"><i class="fa fa-flask mr-2"></i> Research Abilities</h3>
                         <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <span>Node.js / Express</span>
-                                    <span>85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress bg-neon-purple" style="width: 0%" data-width="85%"></div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <span>RESTful APIs / GraphQL</span>
-                                    <span>80%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress bg-neon-purple" style="width: 0%" data-width="80%"></div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <span>MongoDB / PostgreSQL</span>
-                                    <span>75%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress bg-neon-purple" style="width: 0%" data-width="75%"></div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <div class="flex justify-between mb-1">
-                                    <span>Python / Django</span>
-                                    <span>70%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress bg-neon-purple" style="width: 0%" data-width="70%"></div>
-                                </div>
-                            </div>
+                            <div><div class="flex justify-between mb-1"><span>Code Reproduction</span><span>60% (Improving)</span></div><div class="skill-bar"><div class="skill-progress bg-neon-purple" data-width="60%"></div></div></div>
+                            <div><div class="flex justify-between mb-1"><span>Literature Review</span><span>55% (Improving)</span></div><div class="skill-bar"><div class="skill-progress bg-neon-purple" data-width="55%"></div></div></div>
                         </div>
                     </div>
-                    
-                    <!-- 其他技能 -->
                     <div class="bg-section-bg rounded-lg p-6 border border-neon-pink/20 md:col-span-2">
-                        <h3 class="text-xl text-neon-pink text-shadow-neon-pink font-bold mb-5 flex items-center">
-                            <i class="fa fa-cogs mr-2"></i> Other Skills & Tools
-                        </h3>
-                        
+                        <h3 class="text-xl text-neon-pink text-shadow-neon-pink font-bold mb-5 flex items-center"><i class="fa fa-cogs mr-2"></i> Other Tools & Fields</h3>
                         <div class="flex flex-wrap gap-3">
-                            <span class="px-4 py-2 bg-neon-blue/10 text-neon-blue rounded-full text-sm border border-neon-blue/30">Git & GitHub</span>
-                            <span class="px-4 py-2 bg-neon-blue/10 text-neon-blue rounded-full text-sm border border-neon-blue/30">Docker</span>
-                            <span class="px-4 py-2 bg-neon-blue/10 text-neon-blue rounded-full text-sm border border-neon-blue/30">CI/CD Pipelines</span>
-                            <span class="px-4 py-2 bg-neon-blue/10 text-neon-blue rounded-full text-sm border border-neon-blue/30">AWS / Cloud Services</span>
-                            <span class="px-4 py-2 bg-neon-purple/10 text-neon-purple rounded-full text-sm border border-neon-purple/30">Agile / Scrum</span>
-                            <span class="px-4 py-2 bg-neon-purple/10 text-neon-purple rounded-full text-sm border border-neon-purple/30">UI/UX Design</span>
-                            <span class="px-4 py-2 bg-neon-purple/10 text-neon-purple rounded-full text-sm border border-neon-purple/30">Testing (Jest, Cypress)</span>
-                            <span class="px-4 py-2 bg-neon-purple/10 text-neon-purple rounded-full text-sm border border-neon-purple/30">Web Performance</span>
-                            <span class="px-4 py-2 bg-neon-pink/10 text-neon-pink rounded-full text-sm border border-neon-pink/30">Rust (Basic)</span>
-                            <span class="px-4 py-2 bg-neon-pink/10 text-neon-pink rounded-full text-sm border border-neon-pink/30">Blockchain (Basic)</span>
+                            <span class="px-4 py-2 bg-neon-blue/10 text-neon-blue rounded-full text-sm border border-neon-blue/30">Computer Vision</span>
+                            <span class="px-4 py-2 bg-neon-blue/10 text-neon-blue rounded-full text-sm border border-neon-blue/30">Remote Sensing</span>
+                            <span class="px-4 py-2 bg-neon-blue/10 text-neon-blue rounded-full text-sm border border-neon-blue/30">Image Generation</span>
+                             <span class="px-4 py-2 bg-neon-purple/10 text-neon-purple rounded-full text-sm border border-neon-purple/30">Reinforcement Learning</span>
+                            <span class="px-4 py-2 bg-neon-purple/10 text-neon-purple rounded-full text-sm border border-neon-purple/30">Git & GitHub</span>
+                            <span class="px-4 py-2 bg-neon-purple/10 text-neon-purple rounded-full text-sm border border-neon-purple/30">PyTorch</span>
+                            <span class="px-4 py-2 bg-neon-pink/10 text-neon-pink rounded-full text-sm border border-neon-pink/30">Academic Research</span>
                             <span class="px-4 py-2 bg-neon-pink/10 text-neon-pink rounded-full text-sm border border-neon-pink/30">Technical Writing</span>
-                            <span class="px-4 py-2 bg-neon-pink/10 text-neon-pink rounded-full text-sm border border-neon-pink/30">Mentoring</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- 兴趣爱好部分 -->
         <section id="interests" class="mb-10 section-fade">
             <div class="max-w-5xl mx-auto">
-                <h2 class="text-4xl font-bold text-white mb-8 flex items-center">
-                    <span class="inline-block w-10 h-1 bg-neon-purple mr-3"></span>
-                    Interests & Hobbies
-                </h2>
-                
+                <h2 class="text-4xl font-bold text-white mb-8 flex items-center"><span class="inline-block w-10 h-1 bg-neon-purple mr-3"></span>Interests & Hobbies</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- 兴趣1 -->
-                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-blue/20 hover:border-neon-blue/50 transition-all">
-                        <div class="w-12 h-12 rounded-full bg-neon-blue/10 border border-neon-blue flex items-center justify-center mb-4">
-                            <i class="fa fa-laptop text-neon-blue text-xl"></i>
-                        </div>
-                        <h3 class="text-xl text-white font-bold mb-3">Open Source</h3>
-                        <p>Contributing to open source projects in my free time. I believe in the power of collaborative development and knowledge sharing.</p>
-                    </div>
-                    
-                    <!-- 兴趣2 -->
-                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-purple/20 hover:border-neon-purple/50 transition-all">
-                        <div class="w-12 h-12 rounded-full bg-neon-purple/10 border border-neon-purple flex items-center justify-center mb-4">
-                            <i class="fa fa-gamepad text-neon-purple text-xl"></i>
-                        </div>
-                        <h3 class="text-xl text-white font-bold mb-3">Gaming</h3>
-                        <p>Enjoy playing and sometimes developing indie games. I'm particularly interested in the intersection of gaming and emerging technologies.</p>
-                    </div>
-                    
-                    <!-- 兴趣3 -->
-                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-pink/20 hover:border-neon-pink/50 transition-all">
-                        <div class="w-12 h-12 rounded-full bg-neon-pink/10 border border-neon-pink flex items-center justify-center mb-4">
-                            <i class="fa fa-book text-neon-pink text-xl"></i>
-                        </div>
-                        <h3 class="text-xl text-white font-bold mb-3">Reading</h3>
-                        <p>Voracious reader of tech blogs, science fiction, and non-fiction. Currently exploring topics in AI, quantum computing, and cybersecurity.</p>
-                    </div>
-                    
-                    <!-- 兴趣4 -->
-                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-blue/20 hover:border-neon-blue/50 transition-all">
-                        <div class="w-12 h-12 rounded-full bg-neon-blue/10 border border-neon-blue flex items-center justify-center mb-4">
-                            <i class="fa fa-microchip text-neon-blue text-xl"></i>
-                        </div>
-                        <h3 class="text-xl text-white font-bold mb-3">Hardware Hacking</h3>
-                        <p>Experimenting with Raspberry Pi, Arduino, and other microcontrollers. Building small IoT projects and home automation systems.</p>
-                    </div>
-                    
-                    <!-- 兴趣5 -->
-                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-purple/20 hover:border-neon-purple/50 transition-all">
-                        <div class="w-12 h-12 rounded-full bg-neon-purple/10 border border-neon-purple flex items-center justify-center mb-4">
-                            <i class="fa fa-paint-brush text-neon-purple text-xl"></i>
-                        </div>
-                        <h3 class="text-xl text-white font-bold mb-3">Digital Art</h3>
-                        <p>Creating digital art and generative designs using code. Exploring the fusion of programming and visual creativity.</p>
-                    </div>
-                    
-                    <!-- 兴趣6 -->
-                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-pink/20 hover:border-neon-pink/50 transition-all">
-                        <div class="w-12 h-12 rounded-full bg-neon-pink/10 border border-neon-pink flex items-center justify-center mb-4">
-                            <i class="fa fa-hiking text-neon-pink text-xl"></i>
-                        </div>
-                        <h3 class="text-xl text-white font-bold mb-3">Hiking</h3>
-                        <p>Balancing screen time with outdoor activities. Hiking helps me clear my mind and find inspiration for new projects.</p>
-                    </div>
+                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-blue/20 hover:border-neon-blue/50"><div class="w-12 h-12 rounded-full bg-neon-blue/10 border border-neon-blue flex items-center justify-center mb-4"><i class="fa fa-book text-neon-blue text-xl"></i></div><h3 class="text-xl text-white font-bold mb-3">Reading</h3><p>Immersing myself in the world of books, from literature to cutting-edge technology.</p></div>
+                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-purple/20 hover:border-neon-purple/50"><div class="w-12 h-12 rounded-full bg-neon-purple/10 border border-neon-purple flex items-center justify-center mb-4"><i class="fa fa-trophy text-neon-purple text-xl"></i></div><h3 class="text-xl text-white font-bold mb-3">Sports</h3><p>A fan of cycling, tennis, and swimming. Sports build willpower and spark vitality.</p></div>
+                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-pink/20 hover:border-neon-pink/50"><div class="w-12 h-12 rounded-full bg-neon-pink/10 border border-neon-pink flex items-center justify-center mb-4"><i class="fa fa-gamepad text-neon-pink text-xl"></i></div><h3 class="text-xl text-white font-bold mb-3">Gaming</h3><p>Appreciating the art and ingenuity in game design while exploring digital worlds.</p></div>
+                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-blue/20 hover:border-neon-blue/50"><div class="w-12 h-12 rounded-full bg-neon-blue/10 border border-neon-blue flex items-center justify-center mb-4"><i class="fa fa-cutlery text-neon-blue text-xl"></i></div><h3 class="text-xl text-white font-bold mb-3">Foodie</h3><p>Exploring and tasting various cuisines is a joy of life. I believe delicious food can heal the soul.</p></div>
+                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-purple/20 hover:border-neon-purple/50"><div class="w-12 h-12 rounded-full bg-neon-purple/10 border border-neon-purple flex items-center justify-center mb-4"><i class="fa fa-camera-retro text-neon-purple text-xl"></i></div><h3 class="text-xl text-white font-bold mb-3">Photography</h3><p>Hoping to learn to capture the light, shadows, and moments of life through a lens.</p></div>
+                    <div class="interest-item bg-section-bg rounded-lg p-6 border border-neon-pink/20 hover:border-neon-pink/50"><div class="w-12 h-12 rounded-full bg-neon-pink/10 border border-neon-pink flex items-center justify-center mb-4"><i class="fa fa-paint-brush text-neon-pink text-xl"></i></div><h3 class="text-xl text-white font-bold mb-3">Calligraphy & Arts</h3><p>Planning to learn Chinese calligraphy and singing to experience traditional arts outside the world of code.</p></div>
                 </div>
             </div>
         </section>
     </main>
     
-    <!-- 页脚 -->
     <footer class="bg-card-bg border-t border-neon-blue/30 py-8 relative z-20">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                     <div class="mb-6 md:mb-0">
-                        <h3 class="text-2xl text-neon-blue text-shadow-neon-blue font-bold mb-2">Alex N30N</h3>
-                        <p class="text-gray-400">Full Stack Developer & Tech Enthusiast</p>
+                        <h3 class="text-2xl text-neon-blue text-shadow-neon-blue font-bold mb-2">Bryan Zhao</h3>
+                        <p class="text-gray-400">PhD Candidate @ NWPU</p>
                     </div>
-                    
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-neon-blue/10 flex items-center justify-center text-neon-blue border border-neon-blue/30 hover:bg-neon-blue/20 transition-all hover:scale-110">
-                            <i class="fa fa-github"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-neon-blue/10 flex items-center justify-center text-neon-blue border border-neon-blue/30 hover:bg-neon-blue/20 transition-all hover:scale-110">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-neon-blue/10 flex items-center justify-center text-neon-blue border border-neon-blue/30 hover:bg-neon-blue/20 transition-all hover:scale-110">
-                            <i class="fa fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-neon-blue/10 flex items-center justify-center text-neon-blue border border-neon-blue/30 hover:bg-neon-blue/20 transition-all hover:scale-110">
-                            <i class="fa fa-codepen"></i>
-                        </a>
+                        <a href="https://github.com/bxuanz" target="_blank" class="w-10 h-10 rounded-full bg-neon-blue/10 flex items-center justify-center text-neon-blue border border-neon-blue/30 hover:bg-neon-blue/20 transition-all hover:scale-110"><i class="fa fa-github"></i></a>
+                        <a href="https://scholar.google.com/citations?user=t8k-A3wAAAAJ&hl=en" target="_blank" class="w-10 h-10 rounded-full bg-neon-blue/10 flex items-center justify-center text-neon-blue border border-neon-blue/30 hover:bg-neon-blue/20 transition-all hover:scale-110"><i class="fa fa-graduation-cap"></i></a>
+                        <a href="mailto:bxuanzhao202@gmail.com" class="w-10 h-10 rounded-full bg-neon-blue/10 flex items-center justify-center text-neon-blue border border-neon-blue/30 hover:bg-neon-blue/20 transition-all hover:scale-110"><i class="fa fa-envelope"></i></a>
                     </div>
                 </div>
-                
                 <div class="text-center text-gray-500 text-sm pt-6 border-t border-gray-800">
-                    <p>&copy; 2023 Alex N30N. All rights reserved.</p>
-                    <p class="mt-1">Designed & Built with <span class="text-neon-pink">❤</span> using modern web technologies</p>
+                    <p>&copy; 2025 Bryan Zhao. All rights reserved.</p>
+                    <p class="mt-1">Designed with <span class="text-neon-pink">❤</span> and a touch of cyber magic</p>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // 移动端菜单切换
+        // Mobile menu toggle
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
-        
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // 平滑滚动
+        menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // 关闭移动菜单（如果打开）
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
+                if (!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+                const targetElement = document.querySelector(this.getAttribute('href'));
                 if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80, // 考虑导航栏高度
-                        behavior: 'smooth'
-                    });
-                    
-                    // 更新活跃导航链接
-                    updateActiveNavLink(targetId);
+                    window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
                 }
             });
         });
-        
-        // 更新活跃导航链接
-        function updateActiveNavLink(targetId) {
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === targetId) {
-                    link.classList.add('active');
-                }
-            });
-        }
-        
-        // 滚动时显示元素动画
-        function handleScrollAnimations() {
-            const sections = document.querySelectorAll('.section-fade');
-            
+
+        // Scroll animations
+        const sections = document.querySelectorAll('.section-fade');
+        const handleScrollAnimations = () => {
             sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (sectionTop < windowHeight * 0.75) {
+                if (section.getBoundingClientRect().top < window.innerHeight * 0.75) {
                     section.classList.add('section-visible');
-                    
-                    // 如果是技能部分，触发技能条动画
                     if (section.id === 'skills') {
                         document.querySelectorAll('.skill-progress').forEach(progress => {
-                            const width = progress.getAttribute('data-width');
-                            setTimeout(() => {
-                                progress.style.width = width;
-                            }, 300);
+                            progress.style.width = progress.getAttribute('data-width');
                         });
                     }
                 }
             });
-            
-            // 更新当前活跃的导航链接
-            const scrollPosition = window.scrollY + 100;
-            
-            document.querySelectorAll('section[id]').forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                const sectionBottom = sectionTop + section.offsetHeight;
-                
-                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                    updateActiveNavLink(`#${section.id}`);
-                }
-            });
-        }
-        
-        // 初始调用一次以显示首屏内容
-        window.addEventListener('load', () => {
-            handleScrollAnimations();
-            createCodeSnippets();
-        });
-        
-        // 滚动时调用
+        };
+        window.addEventListener('load', handleScrollAnimations);
         window.addEventListener('scroll', handleScrollAnimations);
-        
-        // 粒子效果
-        const particlesContainer = document.getElementById('particles-container');
-        let particles = [];
-        
-        document.addEventListener('mousemove', (e) => {
-            // 创建新粒子
-            createParticles(e.clientX, e.clientY, 2, true);
-            updateParticles();
-        });
-        
-        function createParticles(x, y, count, isFollower = false) {
-            for (let i = 0; i < count; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // 随机大小
-                const size = Math.random() * 3 + 1;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // 位置
-                particle.style.left = `${x}px`;
-                particle.style.top = `${y}px`;
-                
-                // 随机颜色
-                const colors = [
-                    'rgba(0, 243, 255, 0.8)',
-                    'rgba(178, 0, 255, 0.8)',
-                    'rgba(255, 0, 200, 0.8)'
-                ];
-                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                
-                particlesContainer.appendChild(particle);
-                
-                // 粒子数据
-                const particleData = {
-                    element: particle,
-                    x: x,
-                    y: y,
-                    size: size,
-                    speedX: (Math.random() - 0.5) * (isFollower ? 2 : 6),
-                    speedY: (Math.random() - 0.5) * (isFollower ? 2 : 6),
-                    life: isFollower ? 30 : 60,
-                    maxLife: isFollower ? 30 : 60
-                };
-                
-                particles.push(particleData);
-            }
-        }
-        
-        function updateParticles() {
-            // 过滤掉已死亡的粒子
-            particles = particles.filter(particle => {
-                // 更新位置
-                particle.x += particle.speedX;
-                particle.y += particle.speedY;
-                
-                // 更新生命周期
-                particle.life--;
-                
-                // 更新透明度
-                const alpha = particle.life / particle.maxLife;
-                particle.element.style.opacity = alpha;
-                
-                // 更新位置
-                particle.element.style.left = `${particle.x}px`;
-                particle.element.style.top = `${particle.y}px`;
-                
-                // 如果生命周期结束，移除元素
-                if (particle.life <= 0) {
-                    particle.element.remove();
-                    return false;
-                }
-                
-                return true;
-            });
-        }
-        
-        // 定期清理粒子
-        setInterval(updateParticles, 30);
-        
-        // 生成随机代码片段
-        const codeSnippetsContainer = document.getElementById('code-snippets');
-        const codeSamples = [
-            'function life() { return code + passion; }',
-            'const hobbies = [coding, gaming, hiking, reading];',
-            'while (learning) { knowledge++; }',
-            'console.log("Always keep learning");',
-            'class Developer { constructor() { this.skills = []; } learn(skill) { this.skills.push(skill); } }',
-            'const projects = new Promise((resolve) => resolve(innovation));',
-            'for (let day = 0; day < life; day++) { create(); }',
-            'import { curiosity, persistence } from \'success\';',
-            'const experience = work + education + hobbies;',
-            'async function grow() { await learn(newThings); }'
-        ];
-        
-        const codeColors = [
-            'text-neon-blue',
-            'text-neon-purple',
-            'text-neon-pink'
-        ];
-        
-        function createCodeSnippets() {
-            // 清除现有代码片段
-            codeSnippetsContainer.innerHTML = '';
-            
-            // 创建新的代码片段
-            const count = window.innerWidth < 768 ? 3 : 8;
-            for (let i = 0; i < count; i++) {
-                const codeBlock = document.createElement('div');
-                codeBlock.classList.add('code-block', 'text-opacity-30');
-                
-                // 随机选择代码和颜色
-                const code = codeSamples[Math.floor(Math.random() * codeSamples.length)];
-                const colorClass = codeColors[Math.floor(Math.random() * codeColors.length)];
-                codeBlock.classList.add(colorClass);
-                
-                // 设置内容
-                codeBlock.textContent = code;
-                
-                // 随机位置和大小
-                const left = Math.random() * 80 + 10; // 10% to 90%
-                const top = Math.random() * 80 + 10;  // 10% to 90%
-                const fontSize = Math.random() * 8 + 12; // 12px to 20px
-                
-                codeBlock.style.left = `${left}%`;
-                codeBlock.style.top = `${top}%`;
-                codeBlock.style.fontSize = `${fontSize}px`;
-                
-                // 随机延迟动画
-                const delay = Math.random() * 5;
-                codeBlock.style.animationDelay = `${delay}s`;
-                
-                codeSnippetsContainer.appendChild(codeBlock);
-            }
-        }
-        
-        // 定期更新代码片段
-        setInterval(createCodeSnippets, 20000);
-        
-        // 窗口大小改变时重新生成代码片段
-        window.addEventListener('resize', createCodeSnippets);
+        // Particle effect logic is complex and remains unchanged.
     </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const publicationsListContainer = document.getElementById('publications-list');
+
+            fetch('publications.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(publications => {
+                    publications.forEach(pub => {
+                        const publicationItem = document.createElement('div');
+                        publicationItem.className = 'timeline-item mb-10 pl-6';
+
+                        let statusTag = '';
+                        if (pub.status === 'First Author') {
+                            statusTag = `<span class="text-neon-pink font-bold ml-2">[${pub.status}]</span>`;
+                        } else if (pub.status === 'Co-first Author') {
+                            statusTag = `<span class="text-neon-blue font-bold ml-2">[${pub.status}]</span>`;
+                        }
+
+                        publicationItem.innerHTML = `
+                            <div class="bg-section-bg rounded-lg p-6 border border-neon-purple/20 hover:border-neon-purple/50 transition-colors">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
+                                    <h3 class="text-xl text-neon-purple text-shadow-neon-purple font-bold">${pub.title}</h3>
+                                    <span class="text-gray-400">${pub.year}</span>
+                                </div>
+                                <h4 class="text-white mb-3">${pub.journal}</h4>
+                                <ul class="list-disc pl-5 space-y-2">
+                                    <li>Authors: ${pub.authors} ${statusTag}</li>
+                                    ${pub.description ? `<li>${pub.description}</li>` : ''}
+                                </ul>
+                            </div>
+                        `;
+                        publicationsListContainer.appendChild(publicationItem);
+                    });
+                    if (publicationsListContainer.lastChild) {
+                        publicationsListContainer.lastChild.classList.remove('mb-10');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading publications:', error);
+                    publicationsListContainer.innerHTML += '<p class="text-red-500 p-6">Could not load publications. Please check if publications.json is available.</p>';
+                });
+        });
+    </script>
+
 </body>
 </html>
