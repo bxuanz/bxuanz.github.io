@@ -12,7 +12,8 @@
     "authors": "C Yang, <strong>B Zhao</strong>, Q Zhou, Q Wang",
     "journal": "IEEE Transactions on Geoscience and Remote Sensing",
     "year": "2025",
-    "status": "Co-first Author"
+    "status": "Co-first Author",
+    "github": "https://github.com/omtcyang/MMO-IG.git"
   },
   {
     "title": "Edge Approximation Text Detector",

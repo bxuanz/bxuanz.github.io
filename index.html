@@ -303,12 +303,27 @@
                         const publicationItem = document.createElement('div');
                         publicationItem.className = 'timeline-item mb-10 pl-6';
 
+                        // --- Start of Upgraded Logic ---
+
+                        // 1. Check for status tag
                         let statusTag = '';
                         if (pub.status === 'First Author') {
                             statusTag = `<span class="text-neon-pink font-bold ml-2">[${pub.status}]</span>`;
                         } else if (pub.status === 'Co-first Author') {
                             statusTag = `<span class="text-neon-blue font-bold ml-2">[${pub.status}]</span>`;
                         }
+
+                        // 2. Check for GitHub link and create a button if it exists
+                        let githubButton = '';
+                        if (pub.github) {
+                            githubButton = `
+                                <a href="${pub.github}" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 px-3 py-1 bg-neon-blue/10 text-neon-blue rounded-md border border-neon-blue/30 text-sm hover:bg-neon-blue/20 transition-all">
+                                    <i class="fa fa-github mr-2"></i>View on GitHub
+                                </a>
+                            `;
+                        }
+
+                        // --- End of Upgraded Logic ---
 
                         publicationItem.innerHTML = `
                             <div class="bg-section-bg rounded-lg p-6 border border-neon-purple/20 hover:border-neon-purple/50 transition-colors">
@@ -321,6 +336,7 @@
                                     <li>Authors: ${pub.authors} ${statusTag}</li>
                                     ${pub.description ? `<li>${pub.description}</li>` : ''}
                                 </ul>
+                                ${githubButton} 
                             </div>
                         `;
                         publicationsListContainer.appendChild(publicationItem);
