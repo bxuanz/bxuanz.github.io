@@ -1,0 +1,44 @@
+[
+  {
+    "title": "RLI-DM: Robust Layout-Based Iterative Diffusion Model for SAR-to-RGB Image Translation",
+    "authors": "<strong>B Zhao</strong>, C Yang, Q Zhou, Q Wang",
+    "journal": "IEEE Transactions on Geoscience and Remote Sensing",
+    "year": "2025",
+    "status": "First Author",
+    "selected": true,
+    "description": "A novel diffusion-based model for translating SAR images to optical (RGB) images, enhancing structural consistency."
+  },
+  {
+    "title": "MMO-IG: Multi-Class and Multi-Scale Object Image Generation for Remote Sensing",
+    "authors": "C Yang, <strong>B Zhao</strong>, Q Zhou, Q Wang",
+    "journal": "IEEE Transactions on Geoscience and Remote Sensing",
+    "year": "2025",
+    "status": "Co-first Author",
+    "selected": true,
+    "github": "https://github.com/omtcyang/MMO-IG.git"
+  },
+  {
+    "title": "Edge Approximation Text Detector",
+    "authors": "C Yang, X Han, T Han, H Han, <strong>B Zhao</strong>, Q Wang",
+    "journal": "IEEE Transactions on Circuits and Systems for Video Technology",
+    "year": "2025",
+    "status": "",
+    "selected": false
+  },
+  {
+    "title": "Traffic sign interpretation via natural language description",
+    "authors": "C Yang, K Zhuang, M Chen, H Ma, X Han, T Han, C Guo, H Han, <strong>B Zhao</strong>, ...",
+    "journal": "IEEE Transactions on Intelligent Transportation Systems",
+    "year": "2024",
+    "status": "",
+    "selected": false
+  },
+  {
+    "title": "Traffic sign interpretation in real road scene",
+    "authors": "C Yang, K Zhuang, M Chen, H Ma, X Han, T Han, C Guo, H Han, <strong>B Zhao</strong>, ...",
+    "journal": "arXiv preprint arXiv:2311.10793",
+    "year": "2023",
+    "status": "",
+    "selected": false
+  }
+]

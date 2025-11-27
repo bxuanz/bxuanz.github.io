@@ -1,0 +1,34 @@
+[
+    { 
+    "name": "Reading", 
+    "icon": "fa-solid fa-book-open", 
+    "color": "text-indigo-500",
+    "link": "https://www.notion.so/2b8d4bdb2425808b9788dcc2d89f5a19?source=copy_link" 
+  },
+  { 
+    "name": "Photography", 
+    "icon": "fa-solid fa-camera-retro", 
+    "color": "text-blue-500",
+    "link": "https://instagram.com" 
+  },
+
+    { 
+    "name": "Films & Series", 
+    "icon": "fa-solid fa-film", 
+    "color": "text-red-500",
+    "link": "https://www.notion.so/2b8d4bdb242580c1bb63f58ceead1008?source=copy_link" 
+  },
+  { 
+    "name": "Sports", 
+    "icon": "fa-solid fa-person-running", 
+    "color": "text-green-600",
+    "link": "#" 
+  },
+
+  { 
+    "name": "Music", 
+    "icon": "fa-solid fa-music", 
+    "color": "text-purple-500",
+    "link": "https://www.notion.so/2b8d4bdb242580069184dbd838207ada?source=copy_link" 
+  }
+]
