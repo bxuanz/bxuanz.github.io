@@ -1,15 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 按顺序加载所有模块
     loadProfile();
     loadEducation();
     loadHonors();
     loadInterests();
     loadPublications();
     
+    // 更新页脚年份
     const fYear = document.getElementById('footer-year');
     if(fYear) fYear.textContent = new Date().getFullYear();
 });
 
-// 通用 Fetch (带时间戳防缓存)
+// --- 通用 Fetch 工具 (带时间戳防缓存) ---
 async function fetchData(url) {
     try {
         const noCacheUrl = `${url}?t=${new Date().getTime()}`;
@@ -22,7 +24,7 @@ async function fetchData(url) {
     }
 }
 
-// 1. Profile
+// --- 1. 加载个人信息 (Profile) ---
 async function loadProfile() {
     const data = await fetchData('data/profile.json');
     if (!data) return;
@@ -41,6 +43,7 @@ async function loadProfile() {
     const bioEl = document.getElementById('profile-bio');
     if(bioEl) bioEl.innerHTML = data.bio;
 
+    // 照片描述 Caption
     const captionEl = document.getElementById('profile-avatar-caption');
     if (captionEl) {
         if (data.avatarCaption && data.avatarCaption.trim() !== "") {
@@ -52,7 +55,7 @@ async function loadProfile() {
     }
 }
 
-// 2. Education
+// --- 2. 加载教育经历 (Education) ---
 async function loadEducation() {
     const data = await fetchData('data/education.json');
     const container = document.getElementById('education-list');
@@ -76,13 +79,14 @@ async function loadEducation() {
     });
 }
 
-// 3. Honors
+// --- 3. 加载荣誉奖项 (Honors) ---
 async function loadHonors() {
     const data = await fetchData('data/honors.json');
     const container = document.getElementById('honors-list');
     if (!container) return;
     container.innerHTML = '';
 
+    // 空状态处理：如果没有荣誉数据，显示励志语录
     if (!data || data.length === 0) {
         const encouragement = "Great things take time. I am on the way to my first milestone.";
         container.innerHTML = `
@@ -94,6 +98,7 @@ async function loadHonors() {
         return;
     }
 
+    // 正常渲染荣誉
     data.forEach(honor => {
         container.innerHTML += `
             <div class="flex items-center p-4 bg-white border border-slate-100 rounded-xl hover:border-amber-200 hover:shadow-sm transition-all duration-300">
@@ -111,7 +116,7 @@ async function loadHonors() {
     });
 }
 
-// 4. Interests
+// --- 4. 加载兴趣爱好 (Interests) ---
 async function loadInterests() {
     const data = await fetchData('data/interests.json');
     const container = document.getElementById('interests-grid');
@@ -127,7 +132,7 @@ async function loadInterests() {
     });
 }
 
-// 5. Publications (支持 Toggle)
+// --- 5. 加载论文 (Publications) - 包含完整图片显示逻辑 ---
 async function loadPublications() {
     const container = document.getElementById('publication-list');
     const btn = document.getElementById('show-more-btn'); 
@@ -138,7 +143,7 @@ async function loadPublications() {
 
         if (container) container.innerHTML = '';
 
-        // 筛选逻辑: selected=true 为默认显示，false 为隐藏
+        // 筛选逻辑: selected=true 显示，false 隐藏
         const primaryPapers = papers.filter(p => p.selected === true);
         const otherPapers = papers.filter(p => p.selected !== true);
 
@@ -147,18 +152,39 @@ async function loadPublications() {
             const actionBtn = paper.github ? `<a href="${paper.github}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 hover:text-blue-700 mt-4 bg-blue-50 px-4 py-2 rounded-full hover:bg-blue-100 transition-colors"><i class="fa-brands fa-github"></i> Code</a>` : '';
             const statusBadge = paper.status ? `<span class="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600 mb-3 border border-slate-200">${paper.status}</span>` : '';
             
+            // 🟢 图片显示修复：
+            // 使用 object-contain 确保图片完整显示不裁剪
+            // 使用 bg-white 保持背景干净
+            const imageHtml = paper.image ? 
+                `<div class="relative shrink-0 w-full aspect-video md:w-72 md:aspect-[4/3] bg-white overflow-hidden group-hover:opacity-90 transition-opacity border-b md:border-b-0 md:border-r border-slate-100">
+                    <img src="${paper.image}" alt="${paper.title}" class="w-full h-full object-contain object-center p-1" onerror="this.style.display='none'">
+                 </div>` : '';
+
             const div = document.createElement('div');
-            div.className = `group p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 ${animate ? 'animate-fade-in' : ''}`;
-            div.innerHTML = `<div>${statusBadge}<h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 mb-2">${paper.title}</h3><p class="text-sm text-slate-600 mb-2">${paper.authors}</p><div class="text-xs text-slate-500 italic">${paper.journal} | ${paper.year}</div>${paper.description ? `<p class="mt-3 text-sm text-slate-500 pl-3 border-l-2 border-blue-100">${paper.description}</p>` : ''}</div>${actionBtn}`;
+            // Flex 布局：响应式
+            div.className = `group flex flex-col md:flex-row bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 overflow-hidden ${animate ? 'animate-fade-in' : ''}`;
+            
+            div.innerHTML = `
+                ${imageHtml}
+                <div class="p-6 flex flex-col justify-between flex-grow">
+                    <div>
+                        ${statusBadge}
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 mb-2 leading-tight">${paper.title}</h3>
+                        <p class="text-sm text-slate-600 mb-2">${paper.authors}</p>
+                        <div class="text-xs text-slate-500 italic">${paper.journal} | ${paper.year}</div>
+                        ${paper.description ? `<p class="mt-3 text-sm text-slate-500 pl-3 border-l-2 border-blue-100 leading-relaxed">${paper.description}</p>` : ''}
+                    </div>
+                    ${actionBtn}
+                </div>`;
             return div;
         };
 
-        // 初始渲染：只显示核心文章
+        // 初始渲染：只显示 Selected 文章
         primaryPapers.forEach(p => container.appendChild(renderCard(p)));
 
-        // 按钮交互逻辑
+        // 按钮逻辑：控制 Show All / Show Less
         if (btn) {
-            // 如果没有隐藏文章，禁用按钮并改文字
+            // 如果没有隐藏文章，禁用按钮
             if (otherPapers.length === 0) {
                 btn.style.opacity = '0.5';
                 btn.style.cursor = 'not-allowed';
@@ -167,20 +193,19 @@ async function loadPublications() {
                 return;
             }
 
-            // 正常状态
+            // 正常激活状态
             btn.style.opacity = '1';
             btn.style.cursor = 'pointer';
 
             btn.onclick = () => {
                 const state = btn.getAttribute('data-state');
-
                 if (state === 'collapsed') {
-                    // 展开：追加剩余文章
+                    // 展开
                     otherPapers.forEach(p => container.appendChild(renderCard(p, true)));
                     btn.innerHTML = `Show Less <i class="fa-solid fa-chevron-up ml-1"></i>`;
                     btn.setAttribute('data-state', 'expanded');
                 } else {
-                    // 收起：重新渲染核心文章
+                    // 收起
                     container.innerHTML = '';
                     primaryPapers.forEach(p => container.appendChild(renderCard(p)));
                     btn.innerHTML = `Show All <i class="fa-solid fa-chevron-down ml-1 transition-transform group-hover:translate-y-0.5"></i>`;

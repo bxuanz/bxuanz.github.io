@@ -13,9 +13,9 @@
                 extend: {
                     colors: {
                         bg: '#ffffff',
-                        textMain: '#1e293b',     // Slate 800
-                        textMuted: '#64748b',    // Slate 500
-                        accent: '#2563eb',       // Blue 600
+                        textMain: '#1e293b',
+                        textMuted: '#64748b',
+                        accent: '#2563eb',
                     },
                     fontFamily: {
                         sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
@@ -48,7 +48,6 @@
             </a>
             <div class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
                 <a href="#education" class="hover:text-accent transition-colors">Education</a>
-                <a href="#honors" class="hover:text-accent transition-colors">Honors</a>
                 <a href="#interests" class="hover:text-accent transition-colors">Interests</a>
                 <a href="#publications" class="hover:text-accent transition-colors">Publications</a>
             </div>
@@ -66,17 +65,10 @@
                 <p class="text-base text-slate-500 leading-relaxed max-w-2xl" id="profile-bio"></p>
                 
                 <div class="mt-8 flex justify-center md:justify-start gap-4">
-                    <a href="https://github.com/bxuanz" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 hover:bg-black hover:text-white transition-all duration-300" title="GitHub">
-                        <i class="fa-brands fa-github text-lg"></i>
-                    </a>
-                    <a href="https://scholar.google.com/citations?user=t8k-A3wAAAAJ&hl=en" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 hover:bg-[#4285F4] hover:text-white transition-all duration-300" title="Google Scholar">
-                        <i class="fa-solid fa-graduation-cap text-lg"></i>
-                    </a>
-                    <a href="mailto:bxuanzhao202@gmail.com" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 hover:bg-blue-600 hover:text-white transition-all duration-300" title="Email">
-                        <i class="fa-solid fa-envelope text-lg"></i>
-                    </a>
+                    <a href="https://github.com/omtcyang" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 hover:bg-black hover:text-white transition-all duration-300" title="GitHub"><i class="fa-brands fa-github text-lg"></i></a>
+                    <a href="https://scholar.google.com/citations?user=你的ID" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 hover:bg-[#4285F4] hover:text-white transition-all duration-300" title="Google Scholar"><i class="fa-solid fa-graduation-cap text-lg"></i></a>
+                    <a href="mailto:bingxuan.zhao@mail.nwpu.edu.cn" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 hover:bg-blue-600 hover:text-white transition-all duration-300" title="Email"><i class="fa-solid fa-envelope text-lg"></i></a>
                 </div>
-                
             </div>
             
             <div class="relative shrink-0 flex flex-col items-center">
@@ -94,13 +86,6 @@
             <div id="education-list" class="space-y-8 ml-2"></div>
         </section>
 
-        <section id="honors" class="scroll-mt-24">
-            <h2 class="text-3xl font-bold text-slate-900 mb-12 flex items-center">
-                <span class="w-2 h-8 bg-amber-500 rounded-full mr-4"></span>Honors & Awards
-            </h2>
-            <div id="honors-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-        </section>
-        
         <section id="interests" class="scroll-mt-24 bg-slate-50 -mx-6 px-6 py-16 rounded-[3rem]">
             <div class="max-w-5xl mx-auto">
                  <h2 class="text-3xl font-bold text-slate-900 mb-12 flex items-center justify-center md:justify-start">
@@ -115,12 +100,10 @@
                 <h2 class="text-3xl font-bold text-slate-900 flex items-center">
                     <span class="w-2 h-8 bg-slate-800 rounded-full mr-4"></span>Selected Publications
                 </h2>
-                
                 <button id="show-more-btn" data-state="collapsed" class="group text-sm font-extrabold text-slate-900 border-2 border-slate-900 px-5 py-2 rounded-full hover:bg-slate-900 hover:text-white transition-all duration-300">
                     Show All <i class="fa-solid fa-chevron-down ml-1 transition-transform group-hover:translate-y-0.5"></i>
                 </button>
             </div>
-            
             <div id="publication-list" class="grid grid-cols-1 gap-6"></div>
         </section>
 
