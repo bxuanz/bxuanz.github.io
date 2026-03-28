@@ -299,7 +299,7 @@ function renderPublications(publications) {
     const remaining = publications.filter((paper) => !primary.includes(paper));
 
     const renderState = (expanded) => {
-        const visible = expanded ? publications : primary;
+        const visible = expanded ? [...primary, ...remaining] : primary;
         container.innerHTML = visible.map((paper) => renderPublicationCard(paper)).join("");
 
         if (!remaining.length) {
@@ -312,9 +312,9 @@ function renderPublications(publications) {
         button.querySelector("span").textContent = expanded ? "Show Less" : "Show All";
     };
 
-    button.addEventListener("click", () => {
+    button.onclick = () => {
         renderState(button.getAttribute("data-state") === "collapsed");
-    });
+    };
 
     renderState(false);
 }
@@ -330,7 +330,9 @@ function renderPublicationCard(paper) {
 
     const links = [];
     if (validLink(paper.github)) {
-        links.push(`<a href="${paper.github}" target="_blank" rel="noreferrer">[Code]</a>`);
+        links.push(
+            `<a class="publication-repo-link" href="${paper.github}" target="_blank" rel="noreferrer" aria-label="GitHub repository for ${paper.title}" title="GitHub repository"><i class="fa-brands fa-github"></i></a>`,
+        );
     }
     links.push(`<span>${paper.journal}</span>`);
 

@@ -1,5 +1,16 @@
 [
   {
+    "title": "Inconsistency Biases in Dynamic Data Pruning",
+    "authors": "Q Zhou, T Yang, <strong>B Zhao</strong>, H Zhang, J Gao, Q Wang",
+    "journal": "International Conference on Learning Representations (ICLR)",
+    "year": "2026",
+    "status": "",
+    "selected": false,
+    "image": "assets/paper5.png",
+    "github": "https://github.com/mrazhou/RePB",
+    "description": "A study of inconsistency bias in dynamic data pruning, examining how resampling, local-window pruning, and cumulative temporal rescaling affect training dynamics."
+  },
+  {
     "title": "RLI-DM: Robust Layout-Based Iterative Diffusion Model for SAR-to-RGB Image Translation",
     "authors": "<strong>B Zhao</strong>, C Yang, Q Zhou, Q Wang",
     "journal": "IEEE Transactions on Geoscience and Remote Sensing (T-GRS)",
