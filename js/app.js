@@ -1,36 +1,38 @@
-const dataCache = new Map();
-
 document.addEventListener("DOMContentLoaded", initPage);
 
 async function initPage() {
-    await Promise.all([
-        loadProfile(),
-        loadOverview(),
-        loadEducation(),
-        loadHonors(),
-        loadInterests(),
-        loadPublications(),
+    const [profile, education, honors, interests, publications] = await Promise.all([
+        fetchJson("data/profile.json"),
+        fetchJson("data/education.json"),
+        fetchJson("data/honors.json"),
+        fetchJson("data/interests.json"),
+        fetchJson("data/publications.json"),
     ]);
 
-    setText("footer-year", new Date().getFullYear());
-}
-
-async function fetchData(url) {
-    if (dataCache.has(url)) {
-        return dataCache.get(url);
+    if (profile) {
+        renderProfile(profile);
+        renderAboutHighlights(profile);
     }
 
-    try {
-        const response = await fetch(`${url}?t=${Date.now()}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error ${response.status}`);
-        }
+    renderNews(profile, honors || [], publications || [], education || []);
+    renderEducation(education || []);
+    renderHonors(honors || []);
+    renderInterests(interests || []);
+    renderPublications(publications || []);
 
-        const data = await response.json();
-        dataCache.set(url, data);
-        return data;
+    setText("footer-year", new Date().getFullYear());
+    setText("footer-name", profile?.name || "");
+}
+
+async function fetchJson(path) {
+    try {
+        const response = await fetch(`${path}?t=${Date.now()}`);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        return await response.json();
     } catch (error) {
-        console.error(`Could not load ${url}:`, error);
+        console.error(`Could not load ${path}:`, error);
         return null;
     }
 }
@@ -49,22 +51,18 @@ function setHtml(id, value) {
     }
 }
 
-function formatCount(value) {
-    return String(value).padStart(2, "0");
-}
-
-function isValidLink(value) {
+function validLink(value) {
     const normalized = typeof value === "string" ? value.trim() : "";
     return Boolean(normalized && normalized !== "#" && !/[?&]user=$/.test(normalized));
 }
 
-function applyActionLink(id, href, shouldOpenInNewTab = true) {
+function applyLink(id, href, options = {}) {
     const element = document.getElementById(id);
     if (!element) {
         return;
     }
 
-    if (!isValidLink(href)) {
+    if (!validLink(href)) {
         element.classList.add("hidden");
         return;
     }
@@ -72,255 +70,283 @@ function applyActionLink(id, href, shouldOpenInNewTab = true) {
     element.href = href;
     element.classList.remove("hidden");
 
-    if (!shouldOpenInNewTab || href.startsWith("mailto:")) {
+    if (options.newTab === false || href.startsWith("mailto:")) {
         element.removeAttribute("target");
         element.removeAttribute("rel");
+    } else {
+        element.target = "_blank";
+        element.rel = "noreferrer";
     }
 }
 
-async function loadProfile() {
-    const data = await fetchData("data/profile.json");
-    if (!data) {
-        return;
-    }
+function renderProfile(profile) {
+    document.title = `${profile.name} | Academic Homepage`;
 
-    document.title = `${data.name} | Academic Homepage`;
-
-    setText("profile-name-main", data.name);
-    setText("profile-role", data.title);
-    setText("profile-uni", data.university);
-    setText("profile-location", data.location || "");
-    setText("profile-current-focus", data.currentFocus || (data.focusAreas || []).slice(0, 2).join(" / "));
-    setText("profile-motto", data.motto ? `"${data.motto}"` : "");
-    setHtml("profile-bio", data.bio);
-    setText("profile-research-statement", data.researchStatement || "");
-    setText("footer-name", data.name);
+    setText("profile-name-main", profile.name);
+    setText("profile-role", profile.title);
+    setText("profile-uni", profile.university);
+    setText("profile-current-focus", profile.currentFocus || "");
+    setText("profile-location", profile.location || "");
+    setText("profile-motto", profile.motto ? `"${profile.motto}"` : "");
+    setHtml("profile-bio", profile.bio || "");
+    setText("profile-research-statement", profile.researchStatement || "");
 
     const avatar = document.getElementById("profile-avatar");
     if (avatar) {
-        avatar.src = data.avatar || "";
-        avatar.alt = data.name ? `${data.name} portrait` : "Portrait";
+        avatar.src = profile.avatar || "";
+        avatar.alt = profile.name ? `${profile.name} portrait` : "Portrait";
     }
 
     const caption = document.getElementById("profile-avatar-caption");
     if (caption) {
-        if (data.avatarCaption && data.avatarCaption.trim()) {
-            caption.textContent = data.avatarCaption;
+        if (profile.avatarCaption) {
+            caption.textContent = profile.avatarCaption;
             caption.classList.remove("hidden");
         } else {
             caption.classList.add("hidden");
         }
     }
 
-    const email = data.email || "";
-    const emailLink = document.getElementById("profile-email");
-    if (emailLink) {
-        if (email) {
-            emailLink.href = `mailto:${email}`;
-            emailLink.textContent = email;
-        } else {
-            emailLink.removeAttribute("href");
-            emailLink.textContent = "Available upon request";
-        }
+    const email = profile.email || "";
+    setText("profile-email", email || "Email unavailable");
+    applyLink("profile-email-link", email ? `mailto:${email}` : "", { newTab: false });
+
+    const links = profile.links || {};
+    applyLink("profile-link-github", links.github);
+    applyLink("profile-link-scholar", links.scholar);
+    applyLink("profile-link-cv", links.cv);
+
+    const tagContainer = document.getElementById("profile-focus-tags");
+    if (tagContainer) {
+        tagContainer.innerHTML = (profile.focusAreas || [])
+            .map((area) => `<span class="focus-tag">${area}</span>`)
+            .join("");
     }
-
-    renderFocusTags(data.focusAreas || []);
-
-    const links = data.links || {};
-    applyActionLink("profile-link-email", links.email || (email ? `mailto:${email}` : ""), false);
-    applyActionLink("profile-link-github", links.github);
-    applyActionLink("profile-link-scholar", links.scholar);
-    applyActionLink("profile-link-cv", links.cv);
 }
 
-function renderFocusTags(areas) {
-    const container = document.getElementById("profile-focus-tags");
+function renderAboutHighlights(profile) {
+    const container = document.getElementById("about-highlights");
     if (!container) {
         return;
     }
 
-    container.innerHTML = areas
-        .map((area) => `<span class="tag-pill">${area}</span>`)
-        .join("");
+    const areas = profile.focusAreas || [];
+    const emphasis = areas.length ? areas.join(", ") : "computer vision and generative modeling";
+
+    const items = [
+        `My research interests lie in <strong>${emphasis}</strong>.`,
+        `I am currently focusing on <strong>${profile.currentFocus || "robust visual modeling"}</strong>.`,
+        `If you are interested in collaboration or discussion, feel free to reach out via email.`,
+    ];
+
+    container.innerHTML = items.map((item) => `<li>${item}</li>`).join("");
 }
 
-async function loadOverview() {
-    const [profile, honors, publications] = await Promise.all([
-        fetchData("data/profile.json"),
-        fetchData("data/honors.json"),
-        fetchData("data/publications.json"),
-    ]);
-
-    if (profile) {
-        setText("stat-areas", formatCount((profile.focusAreas || []).length));
-    }
-
-    if (honors) {
-        setText("stat-honors", formatCount(honors.length));
-    }
-
-    if (publications) {
-        const featuredCount = publications.filter((publication) => publication.selected === true).length;
-        setText("stat-publications", formatCount(publications.length));
-        setText("stat-selected-publications", formatCount(featuredCount));
-    }
-}
-
-async function loadEducation() {
-    const data = await fetchData("data/education.json");
-    const container = document.getElementById("education-list");
-    if (!data || !container) {
+function renderNews(profile, honors, publications, education) {
+    const container = document.getElementById("news-list");
+    if (!container) {
         return;
     }
 
-    container.innerHTML = data
+    const items = [];
+
+    publications.forEach((paper) => {
+        items.push({
+            year: Number.parseInt(paper.year, 10) || 0,
+            priority: 0,
+            html: `<strong>${paper.year}:</strong> ${paper.title} was published in <em>${paper.journal}</em>.`,
+        });
+    });
+
+    honors.forEach((honor) => {
+        items.push({
+            year: Number.parseInt(honor.year, 10) || 0,
+            priority: 1,
+            html: `<strong>${honor.year}:</strong> Received ${honor.title}.`,
+        });
+    });
+
+    education.forEach((entry) => {
+        const startYear = Number.parseInt(String(entry.year).slice(0, 4), 10) || 0;
+        items.push({
+            year: startYear,
+            priority: 2,
+            html: `<strong>${startYear}:</strong> Began ${entry.degree} at ${entry.school}.`,
+        });
+    });
+
+    if (profile?.currentFocus) {
+        items.push({
+            year: new Date().getFullYear(),
+            priority: 3,
+            html: `<strong>${new Date().getFullYear()}:</strong> Current focus: ${profile.currentFocus}.`,
+        });
+    }
+
+    items.sort((left, right) => {
+        if (right.year !== left.year) {
+            return right.year - left.year;
+        }
+        return left.priority - right.priority;
+    });
+
+    const visible = items.slice(0, 8);
+
+    if (!visible.length) {
+        container.innerHTML = `<li class="empty-copy">News items will appear here as updates are added.</li>`;
+        return;
+    }
+
+    container.innerHTML = visible.map((item) => `<li>${item.html}</li>`).join("");
+}
+
+function renderEducation(education) {
+    const container = document.getElementById("education-list");
+    if (!container) {
+        return;
+    }
+
+    if (!education.length) {
+        container.innerHTML = `<p class="empty-copy">Education details are not available yet.</p>`;
+        return;
+    }
+
+    container.innerHTML = education
         .map(
-            (education) => `
-        <article class="timeline-card">
-            <span class="year-pill">${education.year}</span>
-            <h3 class="mt-5 font-display text-4xl font-semibold leading-tight text-ink">${education.degree}</h3>
-            <p class="mt-2 text-base font-semibold text-slate-700">${education.school}</p>
-            <p class="mt-4 text-sm leading-7 text-muted">${education.description}</p>
+            (entry) => `
+        <article class="list-row">
+            <div class="list-main">
+                <h3 class="list-title">${entry.degree}</h3>
+                <p class="list-subtitle">${entry.school}</p>
+                <p class="list-description">${entry.description || ""}</p>
+            </div>
+            <span class="list-year">${entry.year}</span>
         </article>
     `,
         )
         .join("");
 }
 
-async function loadHonors() {
-    const data = await fetchData("data/honors.json");
+function renderHonors(honors) {
     const container = document.getElementById("honors-list");
     if (!container) {
         return;
     }
 
-    if (!data || data.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state md:col-span-2">
-                Honors and scholarships will be listed here as new milestones are added.
-            </div>
-        `;
+    if (!honors.length) {
+        container.innerHTML = `<p class="empty-copy">Honors will be listed here as they are added.</p>`;
         return;
     }
 
-    container.innerHTML = data
+    container.innerHTML = honors
         .map(
             (honor) => `
-        <article class="honor-card">
-            <span class="honor-icon" aria-hidden="true">
-                <i class="fa-solid fa-award"></i>
-            </span>
-            <div>
-                <h3 class="text-lg font-semibold text-ink">${honor.title}</h3>
-                <p class="mt-2 text-sm leading-7 text-muted">${honor.year} | ${honor.issuer}</p>
+        <article class="list-row">
+            <div class="list-main">
+                <h3 class="list-title">${honor.title}</h3>
+                <p class="list-subtitle">${honor.issuer}</p>
             </div>
+            <span class="list-year">${honor.year}</span>
         </article>
     `,
         )
         .join("");
 }
 
-async function loadInterests() {
-    const data = await fetchData("data/interests.json");
+function renderInterests(interests) {
     const container = document.getElementById("interests-grid");
-    if (!data || !container) {
+    if (!container) {
         return;
     }
 
-    container.innerHTML = data
+    if (!interests.length) {
+        container.innerHTML = `<p class="empty-copy">Interests will appear here as references are added.</p>`;
+        return;
+    }
+
+    container.innerHTML = interests
         .map((item) => {
-            const tag = isValidLink(item.link) ? "a" : "div";
-            const attributes = tag === "a" ? `href="${item.link}" target="_blank" rel="noreferrer"` : "";
-            const staticClass = tag === "a" ? "" : " is-static";
+            const interactive = validLink(item.link);
+            const tag = interactive ? "a" : "div";
+            const attrs = interactive ? `href="${item.link}" target="_blank" rel="noreferrer"` : "";
+            const stateClass = interactive ? "" : " is-static";
 
             return `
-                <${tag} ${attributes} class="interest-card${staticClass}">
-                    <i class="${item.icon} ${item.color} text-4xl"></i>
-                    <div>
-                        <p class="font-display text-3xl font-semibold leading-none">${item.name}</p>
-                        <p class="mt-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
-                            ${tag === "a" ? "Open reference" : "Personal note"}
-                        </p>
-                    </div>
+                <${tag} class="interest-item${stateClass}" ${attrs}>
+                    <i class="${item.icon} ${item.color}"></i>
+                    <span>${item.name}</span>
                 </${tag}>
             `;
         })
         .join("");
 }
 
-async function loadPublications() {
-    const papers = await fetchData("data/publications.json");
+function renderPublications(publications) {
     const container = document.getElementById("publication-list");
     const button = document.getElementById("show-more-btn");
-
     if (!container || !button) {
         return;
     }
 
-    if (!papers || papers.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                Publication data could not be loaded.
-            </div>
-        `;
+    if (!publications.length) {
+        container.innerHTML = `<p class="empty-copy">Publication entries are not available yet.</p>`;
         button.classList.add("hidden");
         return;
     }
 
-    const selectedPapers = papers.filter((paper) => paper.selected === true);
-    const primaryPapers = selectedPapers.length > 0 ? selectedPapers : papers.slice(0, Math.min(2, papers.length));
-    const otherPapers = papers.filter((paper) => !primaryPapers.includes(paper));
+    const selected = publications.filter((paper) => paper.selected);
+    const primary = selected.length ? selected : publications.slice(0, Math.min(2, publications.length));
+    const remaining = publications.filter((paper) => !primary.includes(paper));
 
     const renderState = (expanded) => {
-        const visiblePapers = expanded ? papers : primaryPapers;
-        container.innerHTML = visiblePapers.map((paper) => renderPublicationCard(paper, expanded)).join("");
+        const visible = expanded ? publications : primary;
+        container.innerHTML = visible.map((paper) => renderPublicationCard(paper)).join("");
 
-        if (otherPapers.length === 0) {
+        if (!remaining.length) {
             button.classList.add("hidden");
             return;
         }
 
         button.classList.remove("hidden");
-        button.innerHTML = expanded
-            ? '<span>Show Less</span><i class="fa-solid fa-chevron-up text-[11px]"></i>'
-            : '<span>Show All</span><i class="fa-solid fa-chevron-down text-[11px]"></i>';
         button.setAttribute("data-state", expanded ? "expanded" : "collapsed");
+        button.querySelector("span").textContent = expanded ? "Show Less" : "Show All";
     };
 
-    button.onclick = () => {
+    button.addEventListener("click", () => {
         renderState(button.getAttribute("data-state") === "collapsed");
-    };
+    });
 
     renderState(false);
 }
 
-function renderPublicationCard(paper, animate) {
-    const status = paper.status ? `<span class="publication-status">${paper.status}</span>` : "";
-    const description = paper.description ? `<p class="publication-note">${paper.description}</p>` : "";
-    const action =
-        paper.github && isValidLink(paper.github)
-            ? `<a href="${paper.github}" target="_blank" rel="noreferrer" class="publication-action"><i class="fa-brands fa-github"></i><span>Code Repository</span></a>`
-            : "";
+function renderPublicationCard(paper) {
     const image = paper.image
         ? `
-            <div class="publication-media">
-                <img src="${paper.image}" alt="${paper.title}" onerror="this.closest('.publication-media').style.display='none'">
+            <div class="publication-image">
+                <img src="${paper.image}" alt="${paper.title}" onerror="this.parentElement.remove()">
             </div>
         `
         : "";
 
+    const links = [];
+    if (validLink(paper.github)) {
+        links.push(`<a href="${paper.github}" target="_blank" rel="noreferrer">[Code]</a>`);
+    }
+    links.push(`<span>${paper.journal}</span>`);
+
+    const status = paper.status ? `<div class="publication-status">${paper.status}</div>` : "";
+    const points = paper.description ? `<ul class="publication-points"><li>${paper.description}</li></ul>` : "";
+
     return `
-        <article class="publication-card ${animate ? "animate-fade-in" : ""}">
+        <article class="publication-item">
             ${image}
-            <div class="publication-body">
-                <div class="space-y-4">
-                    ${status}
-                    <h3 class="publication-title">${paper.title}</h3>
-                    <p class="publication-meta">${paper.authors}</p>
-                    <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">${paper.journal} | ${paper.year}</p>
-                    ${description}
-                </div>
-                ${action}
+            <div class="publication-content">
+                <h3 class="publication-title">${paper.title}</h3>
+                <p class="publication-authors">${paper.authors}</p>
+                <p class="publication-meta">${paper.year}</p>
+                <div class="publication-links">${links.join(" ")}</div>
+                ${status}
+                ${points}
             </div>
         </article>
     `;
