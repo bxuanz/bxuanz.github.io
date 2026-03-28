@@ -3,12 +3,12 @@
   "title": "Ph.D. Candidate in Computer Science and Engineering",
   "university": "Northwestern Polytechnical University",
   "location": "Xi'an, China",
-  "email": "bingxuan.zhao@mail.nwpu.edu.cn",
+  "email": "bxuanzhao202@gmail.com",
   "avatar": "assets/1.jpg",
-  "avatarCaption": "Shot at Shenyang Imperial Palace, 2025",
-  "motto": "Exploring the unseen world through the lens of algorithms and data.",
+  "avatarCaption": "",
+  "motto": "俱往矣， 数风流人物， 还看今朝。",
   "bio": "Focusing on <strong>Computer Vision</strong>, <strong>Generative AI</strong>, and <strong>Remote Sensing</strong>. Dedicated to exploring the boundaries of robust image translation and generation.",
-  "currentFocus": "Generative modeling for remote sensing imagery",
+  "currentFocus": "",
   "researchStatement": "My current work investigates how generative models and robust visual representations can support trustworthy translation, synthesis, and interpretation of complex remote sensing imagery.",
   "focusAreas": [
     "Computer Vision",
@@ -17,7 +17,7 @@
     "Image Translation"
   ],
   "links": {
-    "email": "mailto:bingxuan.zhao@mail.nwpu.edu.cn",
+    "email": "mailto:bxuanzhao202@gmail.com",
     "github": "https://github.com/omtcyang",
     "scholar": "",
     "cv": ""

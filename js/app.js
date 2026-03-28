@@ -85,11 +85,36 @@ function renderProfile(profile) {
     setText("profile-name-main", profile.name);
     setText("profile-role", profile.title);
     setText("profile-uni", profile.university);
-    setText("profile-current-focus", profile.currentFocus || "");
     setText("profile-location", profile.location || "");
-    setText("profile-motto", profile.motto ? `"${profile.motto}"` : "");
+    const motto = document.getElementById("profile-motto");
+    if (motto) {
+        const phrases = (profile.motto || "")
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+
+        if (phrases.length) {
+            motto.innerHTML = phrases.map((phrase) => `<span class="motto-line">${phrase}</span>`).join("");
+            motto.classList.remove("hidden");
+        } else {
+            motto.textContent = "";
+            motto.classList.add("hidden");
+        }
+    }
+
     setHtml("profile-bio", profile.bio || "");
     setText("profile-research-statement", profile.researchStatement || "");
+
+    const focus = document.getElementById("profile-current-focus");
+    if (focus) {
+        if (profile.currentFocus) {
+            focus.textContent = profile.currentFocus;
+            focus.classList.remove("hidden");
+        } else {
+            focus.textContent = "";
+            focus.classList.add("hidden");
+        }
+    }
 
     const avatar = document.getElementById("profile-avatar");
     if (avatar) {
@@ -133,11 +158,13 @@ function renderAboutHighlights(profile) {
     const areas = profile.focusAreas || [];
     const emphasis = areas.length ? areas.join(", ") : "computer vision and generative modeling";
 
-    const items = [
-        `My research interests lie in <strong>${emphasis}</strong>.`,
-        `I am currently focusing on <strong>${profile.currentFocus || "robust visual modeling"}</strong>.`,
-        `If you are interested in collaboration or discussion, feel free to reach out via email.`,
-    ];
+    const items = [`My research interests lie in <strong>${emphasis}</strong>.`];
+
+    if (profile.currentFocus) {
+        items.push(`I am currently focusing on <strong>${profile.currentFocus}</strong>.`);
+    }
+
+    items.push(`If you are interested in collaboration or discussion, feel free to reach out via email.`);
 
     container.innerHTML = items.map((item) => `<li>${item}</li>`).join("");
 }
@@ -148,10 +175,49 @@ function renderNews(profile, honors, publications, education) {
         return;
     }
 
+    const newsDecor = {
+        publication: {
+            lead: ["🚀", "📘", "🛰️", "✨", "🌱"],
+            tail: ["💫", "🚀", "🧠", "📡", "🌟"],
+        },
+        honor: {
+            lead: ["🏅", "⭐", "🎖️"],
+            tail: ["✨", "🌟", "🥂"],
+        },
+        education: {
+            lead: ["🎓", "📚"],
+            tail: ["🪴", "✏️"],
+        },
+        focus: {
+            lead: ["🧭"],
+            tail: ["💡"],
+        },
+    };
+
+    const pickDecor = (type, index) => {
+        const group = newsDecor[type] || newsDecor.publication;
+        return {
+            lead: group.lead[index % group.lead.length],
+            tail: group.tail[index % group.tail.length],
+        };
+    };
+
+    const renderNewsItem = (item, index) => {
+        const decor = pickDecor(item.type, index);
+        return `
+            <li class="news-item news-item-${item.type}">
+                <span class="news-marker" aria-hidden="true">${decor.lead}</span>
+                <span class="news-copy">${item.html}</span>
+                <span class="news-accent" aria-hidden="true">${decor.tail}</span>
+            </li>
+        `;
+    };
+
     const items = [];
 
     publications.forEach((paper) => {
         items.push({
+            type: "publication",
             year: Number.parseInt(paper.year, 10) || 0,
             priority: 0,
             html: `<strong>${paper.year}:</strong> ${paper.title} was published in <em>${paper.journal}</em>.`,
@@ -160,6 +226,7 @@ function renderNews(profile, honors, publications, education) {
 
     honors.forEach((honor) => {
         items.push({
+            type: "honor",
             year: Number.parseInt(honor.year, 10) || 0,
             priority: 1,
             html: `<strong>${honor.year}:</strong> Received ${honor.title}.`,
@@ -169,6 +236,7 @@ function renderNews(profile, honors, publications, education) {
     education.forEach((entry) => {
         const startYear = Number.parseInt(String(entry.year).slice(0, 4), 10) || 0;
         items.push({
+            type: "education",
             year: startYear,
             priority: 2,
             html: `<strong>${startYear}:</strong> Began ${entry.degree} at ${entry.school}.`,
@@ -177,6 +245,7 @@ function renderNews(profile, honors, publications, education) {
 
     if (profile?.currentFocus) {
         items.push({
+            type: "focus",
             year: new Date().getFullYear(),
             priority: 3,
             html: `<strong>${new Date().getFullYear()}:</strong> Current focus: ${profile.currentFocus}.`,
@@ -190,14 +259,14 @@ function renderNews(profile, honors, publications, education) {
         return left.priority - right.priority;
     });
 
-    const visible = items.slice(0, 8);
+    const visible = items.slice(0, 5);
 
     if (!visible.length) {
         container.innerHTML = `<li class="empty-copy">News items will appear here as updates are added.</li>`;
         return;
     }
 
-    container.innerHTML = visible.map((item) => `<li>${item.html}</li>`).join("");
+    container.innerHTML = visible.map((item, index) => renderNewsItem(item, index)).join("");
 }
 
 function renderEducation(education) {

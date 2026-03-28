@@ -16,6 +16,12 @@
     --sidebar-width: 260px;
 }
 
+@font-face {
+    font-family: "MaoTi";
+    src: url("../assets/MaoZeDongShuFaZiTi/maozedong-1.ttf") format("truetype");
+    font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -32,6 +38,9 @@ body {
     min-height: 100vh;
     color: var(--text);
     font-family: "IBM Plex Sans", sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     background:
         radial-gradient(circle at 85% 18%, rgba(44, 90, 160, 0.07), transparent 20%),
         radial-gradient(circle at top left, rgba(44, 90, 160, 0.06), transparent 22%),
@@ -86,7 +95,7 @@ img {
 }
 
 .nav-brand {
-    font-family: "Source Serif 4", serif;
+    font-family: "Source Serif 4", "Noto Serif SC", serif;
     font-size: 1.55rem;
     font-weight: 700;
     color: var(--text-strong);
@@ -98,7 +107,10 @@ img {
     display: flex;
     align-items: center;
     gap: 1.4rem;
-    font-size: 0.92rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .nav-links a {
@@ -187,7 +199,7 @@ img {
 .profile-name {
     margin: 0;
     color: var(--text-strong);
-    font-family: "Source Serif 4", serif;
+    font-family: "Source Serif 4", "Noto Serif SC", serif;
     font-size: 2.3rem;
     line-height: 1;
     letter-spacing: -0.03em;
@@ -203,14 +215,20 @@ img {
 }
 
 .profile-role {
-    color: var(--text-strong);
-    font-size: 1.1rem;
+    color: var(--accent);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.76rem;
     font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.5;
 }
 
 .profile-affiliation {
     color: var(--text);
-    font-size: 1rem;
+    font-family: "Source Serif 4", "Noto Serif SC", serif;
+    font-size: 1.06rem;
+    letter-spacing: -0.01em;
 }
 
 .profile-focus {
@@ -219,14 +237,33 @@ img {
 }
 
 .profile-motto {
-    padding: 0.9rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    padding: 1.12rem 1.15rem 1.18rem 1.25rem;
     border: 1px solid rgba(44, 90, 160, 0.12);
-    border-left: 3px solid rgba(44, 90, 160, 0.28);
-    border-radius: 0 16px 16px 0;
-    background: rgba(44, 90, 160, 0.04);
-    color: var(--muted);
-    font-size: 0.95rem;
-    font-style: italic;
+    border-left: 4px solid rgba(44, 90, 160, 0.26);
+    border-radius: 0 18px 18px 0;
+    background: linear-gradient(180deg, rgba(44, 90, 160, 0.06), rgba(44, 90, 160, 0.03));
+    color: #2f3640;
+    font-family: "MaoTi", "STKaiti", "Kaiti SC", "Noto Serif SC", serif;
+    font-size: clamp(1.72rem, 1.3rem + 0.95vw, 2.02rem);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: 0.02em;
+    text-wrap: balance;
+    text-align: left;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        0 10px 24px rgba(44, 90, 160, 0.05);
+}
+
+.motto-line {
+    display: block;
+    max-width: 100%;
+    text-indent: 0;
 }
 
 .avatar-caption {
@@ -263,6 +300,11 @@ img {
     text-align: center;
 }
 
+.profile-meta-row span {
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+}
+
 .profile-meta-row:hover,
 .profile-meta-row:focus-visible {
     color: var(--accent);
@@ -285,8 +327,11 @@ img {
     border: 1px solid rgba(44, 90, 160, 0.12);
     background: rgba(44, 90, 160, 0.07);
     color: var(--accent);
-    font-size: 0.84rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.76rem;
     font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
@@ -315,7 +360,7 @@ img {
     align-items: center;
     gap: 0.55rem;
     color: var(--text-strong);
-    font-family: "Source Serif 4", serif;
+    font-family: "Source Serif 4", "Noto Serif SC", serif;
     font-size: 1.15rem;
     line-height: 1.25;
     letter-spacing: -0.02em;
@@ -410,7 +455,7 @@ img {
     align-items: center;
     gap: 0.65rem;
     color: var(--text-strong);
-    font-family: "Source Serif 4", serif;
+    font-family: "Source Serif 4", "Noto Serif SC", serif;
     font-size: 2.05rem;
     line-height: 1.15;
     letter-spacing: -0.03em;
@@ -458,16 +503,20 @@ img {
 .lead-paragraph,
 .body-paragraph {
     margin: 0;
+    font-family: "Source Serif 4", "Noto Serif SC", serif;
     line-height: 1.9;
+    letter-spacing: -0.01em;
+    text-wrap: pretty;
 }
 
 .lead-paragraph {
-    font-size: 1.1rem;
+    font-size: 1.16rem;
 }
 
 .body-paragraph {
     margin-top: 1rem;
     color: var(--muted);
+    font-size: 1.04rem;
 }
 
 .lead-paragraph strong,
@@ -493,7 +542,11 @@ img {
 .note-list li {
     display: flex;
     gap: 0.75rem;
+    font-family: "Source Serif 4", "Noto Serif SC", serif;
+    font-size: 1.03rem;
     line-height: 1.8;
+    letter-spacing: -0.01em;
+    text-wrap: pretty;
 }
 
 .note-list li::before {
@@ -516,20 +569,72 @@ img {
     border: 1px solid rgba(220, 225, 234, 0.82);
     border-radius: 18px;
     background: rgba(255, 255, 255, 0.66);
+    font-family: "Source Serif 4", "Noto Serif SC", serif;
+    font-size: 1.02rem;
     line-height: 1.8;
+    letter-spacing: -0.01em;
+    text-wrap: pretty;
     box-shadow: 0 10px 24px rgba(34, 47, 68, 0.04);
 }
 
-.news-list li::before {
-    content: "";
-    position: absolute;
-    top: 1.4rem;
-    left: 0.7rem;
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: rgba(44, 90, 160, 0.6);
-    box-shadow: 0 0 0 4px rgba(44, 90, 160, 0.08);
+.news-list .news-item {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0.72rem;
+    padding: 0.95rem 1rem;
+}
+
+.news-list li.news-item::before {
+    content: none;
+}
+
+.news-marker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.55rem;
+    min-width: 1.55rem;
+    padding-top: 0.08rem;
+    font-size: 1rem;
+    line-height: 1;
+    filter: saturate(1.05);
+}
+
+.news-copy {
+    min-width: 0;
+}
+
+.news-copy em {
+    font-style: normal;
+    color: var(--accent);
+}
+
+.news-accent {
+    align-self: end;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4rem;
+    font-size: 1rem;
+    line-height: 1;
+    opacity: 0.95;
+}
+
+.news-item-publication .news-marker,
+.news-item-publication .news-accent {
+    filter: drop-shadow(0 1px 6px rgba(44, 90, 160, 0.12));
+}
+
+.news-item-honor .news-marker,
+.news-item-honor .news-accent {
+    filter: drop-shadow(0 1px 6px rgba(218, 162, 53, 0.16));
+}
+
+.news-item-education .news-marker,
+.news-item-education .news-accent {
+    filter: drop-shadow(0 1px 6px rgba(72, 146, 108, 0.14));
 }
 
 .news-list strong {
@@ -583,7 +688,7 @@ img {
     color: var(--accent);
     font-size: 1.48rem;
     line-height: 1.3;
-    font-family: "Source Serif 4", serif;
+    font-family: "Source Serif 4", "Noto Serif SC", serif;
     letter-spacing: -0.02em;
 }
 
@@ -595,6 +700,10 @@ img {
 
 .publication-meta {
     color: var(--muted);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .publication-links {
@@ -711,16 +820,22 @@ img {
 .list-title {
     margin: 0;
     color: var(--text-strong);
-    font-size: 1.05rem;
+    font-family: "Source Serif 4", "Noto Serif SC", serif;
+    font-size: 1.1rem;
     font-weight: 600;
-    line-height: 1.6;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
 }
 
 .list-subtitle,
 .list-description {
     margin: 0.2rem 0 0;
     color: var(--muted);
+    font-family: "Source Serif 4", "Noto Serif SC", serif;
+    font-size: 1rem;
     line-height: 1.75;
+    letter-spacing: -0.01em;
+    text-wrap: pretty;
 }
 
 .list-year {
@@ -728,6 +843,7 @@ img {
     color: var(--text-strong);
     font-family: "IBM Plex Mono", monospace;
     font-size: 0.8rem;
+    letter-spacing: 0.06em;
     white-space: nowrap;
 }
 
@@ -777,6 +893,10 @@ img {
 
 .site-footer p {
     margin: 0;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 @media (max-width: 1023px) {
@@ -824,6 +944,7 @@ img {
         overflow-x: auto;
         padding-bottom: 0.15rem;
         gap: 1rem;
+        font-size: 0.74rem;
         white-space: nowrap;
     }
 
@@ -849,6 +970,13 @@ img {
         border-radius: 24px;
     }
 
+    .profile-motto {
+        gap: 0.24rem;
+        padding: 0.98rem 1rem 1.02rem 1.05rem;
+        font-size: clamp(1.42rem, 1.16rem + 1.05vw, 1.7rem);
+        line-height: 1.12;
+    }
+
     .content-column {
         gap: 1.15rem;
     }
@@ -871,6 +999,16 @@ img {
     .news-list li,
     .content-column .list-row {
         padding: 0.9rem;
+    }
+
+    .news-list .news-item {
+        gap: 0.62rem;
+        padding: 0.9rem;
+    }
+
+    .news-marker,
+    .news-accent {
+        font-size: 0.96rem;
     }
 }
 
