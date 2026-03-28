@@ -3,114 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading Portfolio...</title>
+    <title>Academic Homepage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        bg: '#ffffff',
-                        textMain: '#1e293b',
-                        textMuted: '#64748b',
-                        accent: '#2563eb',
+                        paper: '#f4ede1',
+                        ink: '#202633',
+                        muted: '#5e6977',
+                        accent: '#6f5530',
+                        line: '#d8cdbc',
+                        panel: '#fffdf8'
                     },
                     fontFamily: {
-                        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        display: ['Cormorant Garamond', 'serif'],
+                        mono: ['IBM Plex Mono', 'monospace']
                     },
                     animation: {
-                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards'
                     },
                     keyframes: {
                         fadeIn: {
-                            '0%': { opacity: 0, transform: 'translateY(15px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                            '0%': { opacity: 0, transform: 'translateY(18px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' }
                         }
                     }
                 }
             }
-        }
+        };
     </script>
-    <style>
-        body { background-color: #ffffff; color: #1e293b; }
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
-        .avatar-shadow { box-shadow: 0 15px 50px -10px rgba(37, 99, 235, 0.25); }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="antialiased font-sans bg-white">
+<body class="academic-page antialiased font-sans text-ink bg-paper">
+    <div class="page-ornament page-ornament-left" aria-hidden="true"></div>
+    <div class="page-ornament page-ornament-right" aria-hidden="true"></div>
 
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100/60">
-        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="#hero" class="text-lg font-bold tracking-tight text-slate-900 hover:text-accent transition-colors">
-                Bingxuan.Z
+    <nav class="fixed top-0 z-50 w-full border-b border-line/80 bg-[#f8f2e8]/88 backdrop-blur-xl">
+        <div class="mx-auto flex h-20 max-w-6xl items-center justify-between px-6">
+            <a href="#hero" class="flex flex-col">
+                <span class="font-display text-3xl font-semibold tracking-[0.06em] text-ink">Bingxuan Zhao</span>
+                <span class="font-mono text-[11px] uppercase tracking-[0.26em] text-muted">Academic Portfolio</span>
             </a>
-            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
-                <a href="#education" class="hover:text-accent transition-colors">Education</a>
-                <a href="#interests" class="hover:text-accent transition-colors">Interests</a>
-                <a href="#publications" class="hover:text-accent transition-colors">Publications</a>
+            <div class="hidden items-center gap-8 font-mono text-xs uppercase tracking-[0.2em] text-muted md:flex">
+                <a class="nav-link" href="#overview">Overview</a>
+                <a class="nav-link" href="#education">Education</a>
+                <a class="nav-link" href="#honors">Honors</a>
+                <a class="nav-link" href="#publications">Publications</a>
+                <a class="nav-link" href="#interests">Beyond Research</a>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-6 pt-32 pb-24 space-y-32">
-        
-        <section id="hero" class="flex flex-col-reverse md:flex-row items-center gap-12 md:gap-16 animate-fade-in">
-            <div class="flex-1 text-center md:text-left">
-                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-4" id="profile-name-main"></h1>
-                <h2 class="text-xl md:text-2xl text-accent font-medium mb-6" id="profile-role"></h2>
-                <p class="text-lg text-slate-600 mb-2 font-medium" id="profile-uni"></p>
-                <blockquote class="my-8 pl-4 border-l-4 border-blue-200 italic text-slate-600 text-lg font-serif" id="profile-motto"></blockquote>
-                <p class="text-base text-slate-500 leading-relaxed max-w-2xl" id="profile-bio"></p>
-                
-                <div class="mt-8 flex justify-center md:justify-start gap-4">
-                    <a href="https://github.com/omtcyang" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 hover:bg-black hover:text-white transition-all duration-300" title="GitHub"><i class="fa-brands fa-github text-lg"></i></a>
-                    <a href="https://scholar.google.com/citations?user=你的ID" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 hover:bg-[#4285F4] hover:text-white transition-all duration-300" title="Google Scholar"><i class="fa-solid fa-graduation-cap text-lg"></i></a>
-                    <a href="mailto:bingxuan.zhao@mail.nwpu.edu.cn" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 hover:bg-blue-600 hover:text-white transition-all duration-300" title="Email"><i class="fa-solid fa-envelope text-lg"></i></a>
+    <main class="relative mx-auto flex max-w-6xl flex-col gap-10 px-6 pb-24 pt-28">
+        <section id="hero" class="section-panel hero-shell animate-fade-in scroll-mt-28">
+            <div class="space-y-8">
+                <div class="space-y-4">
+                    <p class="eyebrow">Researcher Profile</p>
+                    <div class="space-y-3">
+                        <h1 id="profile-name-main" class="font-display text-5xl font-semibold leading-none text-ink sm:text-6xl lg:text-7xl"></h1>
+                        <h2 id="profile-role" class="max-w-3xl text-lg font-medium leading-relaxed text-accent sm:text-xl"></h2>
+                    </div>
+                </div>
+
+                <div class="grid gap-3 text-sm text-ink sm:grid-cols-2">
+                    <div class="meta-chip">
+                        <span class="meta-label">Affiliation</span>
+                        <span id="profile-uni"></span>
+                    </div>
+                    <div class="meta-chip">
+                        <span class="meta-label">Location</span>
+                        <span id="profile-location"></span>
+                    </div>
+                    <div class="meta-chip">
+                        <span class="meta-label">Email</span>
+                        <a id="profile-email" href="#"></a>
+                    </div>
+                    <div class="meta-chip">
+                        <span class="meta-label">Current Focus</span>
+                        <span id="profile-current-focus"></span>
+                    </div>
+                </div>
+
+                <blockquote id="profile-motto" class="hero-quote"></blockquote>
+                <p id="profile-bio" class="max-w-3xl text-base leading-8 text-muted sm:text-lg"></p>
+
+                <div class="flex flex-wrap gap-3">
+                    <a id="profile-link-email" class="action-chip is-primary" href="#">
+                        <i class="fa-solid fa-envelope text-xs"></i>
+                        <span>Email</span>
+                    </a>
+                    <a id="profile-link-github" class="action-chip" href="#" target="_blank" rel="noreferrer">
+                        <i class="fa-brands fa-github text-sm"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a id="profile-link-scholar" class="action-chip hidden" href="#" target="_blank" rel="noreferrer">
+                        <i class="fa-solid fa-graduation-cap text-xs"></i>
+                        <span>Google Scholar</span>
+                    </a>
+                    <a id="profile-link-cv" class="action-chip hidden" href="#" target="_blank" rel="noreferrer">
+                        <i class="fa-regular fa-file-lines text-xs"></i>
+                        <span>Curriculum Vitae</span>
+                    </a>
                 </div>
             </div>
-            
-            <div class="relative shrink-0 flex flex-col items-center">
-                <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-white avatar-shadow relative z-10 bg-slate-100">
-                    <img id="profile-avatar" src="" alt="Avatar" class="w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-500">
+
+            <div class="space-y-6">
+                <div class="portrait-card">
+                    <div class="portrait-frame">
+                        <img id="profile-avatar" src="" alt="Portrait of Bingxuan Zhao">
+                    </div>
+                    <p id="profile-avatar-caption" class="portrait-caption hidden"></p>
                 </div>
-                <p id="profile-avatar-caption" class="mt-5 text-xs font-mono text-slate-500 text-center max-w-[220px] bg-slate-50 px-4 py-1.5 rounded-full border border-slate-100 hidden"></p>
+
+                <div class="section-panel section-panel-nested">
+                    <div class="flex items-center justify-between gap-4">
+                        <div>
+                            <p class="eyebrow">Research Areas</p>
+                            <h3 class="font-display text-3xl font-semibold text-ink">Current Domain Map</h3>
+                        </div>
+                        <span class="rounded-full border border-line bg-white/70 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">Active</span>
+                    </div>
+                    <div id="profile-focus-tags" class="mt-6 flex flex-wrap gap-3"></div>
+                </div>
             </div>
         </section>
 
-        <section id="education" class="scroll-mt-24">
-            <h2 class="text-3xl font-bold text-slate-900 mb-12 flex items-center">
-                <span class="w-2 h-8 bg-blue-600 rounded-full mr-4"></span>Education
-            </h2>
-            <div id="education-list" class="space-y-8 ml-2"></div>
-        </section>
-
-        <section id="interests" class="scroll-mt-24 bg-slate-50 -mx-6 px-6 py-16 rounded-[3rem]">
-            <div class="max-w-5xl mx-auto">
-                 <h2 class="text-3xl font-bold text-slate-900 mb-12 flex items-center justify-center md:justify-start">
-                    <span class="hidden md:block w-2 h-8 bg-indigo-500 rounded-full mr-4"></span>Interests
-                </h2>
-                <div id="interests-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"></div>
+        <section id="overview" class="grid gap-6 scroll-mt-28 lg:grid-cols-[1.5fr_1fr]">
+            <div class="section-panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-index">I</p>
+                        <h2 class="section-title">Research Snapshot</h2>
+                    </div>
+                    <p class="section-caption">A compact summary of publications, recognitions, and active research directions.</p>
+                </div>
+                <div class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                    <article class="stat-card">
+                        <span class="stat-label">Publications</span>
+                        <strong id="stat-publications" class="stat-value">0</strong>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">Featured Papers</span>
+                        <strong id="stat-selected-publications" class="stat-value">0</strong>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">Honors</span>
+                        <strong id="stat-honors" class="stat-value">0</strong>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">Research Areas</span>
+                        <strong id="stat-areas" class="stat-value">0</strong>
+                    </article>
+                </div>
             </div>
+
+            <aside class="section-panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-index">II</p>
+                        <h2 class="section-title">Current Direction</h2>
+                    </div>
+                </div>
+                <p id="profile-research-statement" class="text-base leading-8 text-muted"></p>
+            </aside>
         </section>
 
-        <section id="publications" class="scroll-mt-24">
-            <div class="flex items-center justify-between mb-12">
-                <h2 class="text-3xl font-bold text-slate-900 flex items-center">
-                    <span class="w-2 h-8 bg-slate-800 rounded-full mr-4"></span>Selected Publications
-                </h2>
-                <button id="show-more-btn" data-state="collapsed" class="group text-sm font-extrabold text-slate-900 border-2 border-slate-900 px-5 py-2 rounded-full hover:bg-slate-900 hover:text-white transition-all duration-300">
-                    Show All <i class="fa-solid fa-chevron-down ml-1 transition-transform group-hover:translate-y-0.5"></i>
+        <section id="education" class="section-panel scroll-mt-28">
+            <div class="section-heading">
+                <div>
+                    <p class="section-index">III</p>
+                    <h2 class="section-title">Education</h2>
+                </div>
+                <p class="section-caption">Academic training and formal study trajectory.</p>
+            </div>
+            <div id="education-list" class="timeline-list mt-10 space-y-6"></div>
+        </section>
+
+        <section id="honors" class="section-panel scroll-mt-28">
+            <div class="section-heading">
+                <div>
+                    <p class="section-index">IV</p>
+                    <h2 class="section-title">Honors and Scholarships</h2>
+                </div>
+                <p class="section-caption">Recent recognitions across graduate and undergraduate study.</p>
+            </div>
+            <div id="honors-list" class="mt-10 grid gap-4 md:grid-cols-2"></div>
+        </section>
+
+        <section id="publications" class="section-panel scroll-mt-28">
+            <div class="section-heading gap-6">
+                <div>
+                    <p class="section-index">V</p>
+                    <h2 class="section-title">Selected Publications</h2>
+                </div>
+                <button id="show-more-btn" data-state="collapsed" class="show-more-btn group">
+                    <span>Show All</span>
+                    <i class="fa-solid fa-chevron-down text-[11px] transition-transform duration-300 group-hover:translate-y-0.5"></i>
                 </button>
             </div>
-            <div id="publication-list" class="grid grid-cols-1 gap-6"></div>
+            <div id="publication-list" class="mt-10 grid gap-6"></div>
         </section>
 
+        <section id="interests" class="section-panel scroll-mt-28">
+            <div class="section-heading">
+                <div>
+                    <p class="section-index">VI</p>
+                    <h2 class="section-title">Beyond Research</h2>
+                </div>
+                <p class="section-caption">Personal interests that shape observation, taste, and perspective outside the lab.</p>
+            </div>
+            <div id="interests-grid" class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5"></div>
+        </section>
     </main>
 
-    <footer class="bg-slate-50 py-10 border-t border-slate-100 text-center">
-        <p class="text-slate-500 font-medium text-sm">&copy; <span id="footer-year"></span> <span id="footer-name"></span>.</p>
+    <footer class="border-t border-line/80 bg-[#fbf7f0]/80 py-10 text-center">
+        <p class="font-mono text-xs uppercase tracking-[0.22em] text-muted">Academic Homepage</p>
+        <p class="mt-3 text-sm text-muted">&copy; <span id="footer-year"></span> <span id="footer-name"></span>. Updated for research, publications, and selected milestones.</p>
     </footer>
 
     <script src="js/app.js"></script>

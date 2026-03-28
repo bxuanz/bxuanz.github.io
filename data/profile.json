@@ -2,8 +2,24 @@
   "name": "Bingxuan Zhao",
   "title": "Ph.D. Candidate in Computer Science and Engineering",
   "university": "Northwestern Polytechnical University",
+  "location": "Xi'an, China",
+  "email": "bingxuan.zhao@mail.nwpu.edu.cn",
   "avatar": "assets/zbx.jpg",
-  "avatarCaption": "📍 Shot at Shenyang Imperial Palace, 2025",
+  "avatarCaption": "Shot at Shenyang Imperial Palace, 2025",
   "motto": "Exploring the unseen world through the lens of algorithms and data.",
-  "bio": "Focusing on <strong>Computer Vision</strong>, <strong>Generative AI</strong>, and <strong>Remote Sensing</strong>. Dedicated to exploring the boundaries of robust image translation and generation."
+  "bio": "Focusing on <strong>Computer Vision</strong>, <strong>Generative AI</strong>, and <strong>Remote Sensing</strong>. Dedicated to exploring the boundaries of robust image translation and generation.",
+  "currentFocus": "Generative modeling for remote sensing imagery",
+  "researchStatement": "My current work investigates how generative models and robust visual representations can support trustworthy translation, synthesis, and interpretation of complex remote sensing imagery.",
+  "focusAreas": [
+    "Computer Vision",
+    "Generative AI",
+    "Remote Sensing",
+    "Image Translation"
+  ],
+  "links": {
+    "email": "mailto:bingxuan.zhao@mail.nwpu.edu.cn",
+    "github": "https://github.com/omtcyang",
+    "scholar": "",
+    "cv": ""
+  }
 }

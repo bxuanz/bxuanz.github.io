@@ -17,7 +17,8 @@
     "status": "Co-first Author",
     "selected": true,
     "image": "assets/paper2.png",
-    "github": "https://github.com/omtcyang/MMO-IG.git"
+    "github": "https://github.com/omtcyang/MMO-IG.git",
+    "description": "A generative framework for synthesizing remote sensing objects across categories and spatial scales."
   },
   {
     "title": "Edge Approximation Text Detector",
@@ -26,7 +27,8 @@
     "year": "2025",
     "status": "",
     "selected": false,
-    "image": "assets/paper3.png"
+    "image": "assets/paper3.png",
+    "description": "A text detection approach that improves localization by modeling contour structure and edge approximation."
   },
   {
     "title": "Traffic sign interpretation via natural language description",
@@ -35,6 +37,7 @@
     "year": "2024",
     "status": "",
     "selected": false,
-    "image": "assets/paper4.png"
+    "image": "assets/paper4.png",
+    "description": "An interpretable framework that connects traffic sign understanding with natural language generation."
   }
 ]
