@@ -1,4 +1,26 @@
-[
+[  
+
+  {
+    "title": "σ: Sigmoid Modulation for Ultra High Resolution Diffusion",
+    "authors": "<strong>B Zhao</strong>, Q Zhou, Y Wang, C Yang, Q Wang",
+    "journal": "International Conference on Machine Learning (ICML)",
+    "year": "2026",
+    "status": "First Author",
+    "selected": true,
+    "image": "assets/paper7.png",
+    "description": "A sigmoid-modulated framework for stable and efficient ultra high resolution diffusion generation."
+  },
+  {
+    "title": "Batch Loss Score for Dynamic Data Pruning",
+    "authors": "Q Zhou, <strong>B Zhao</strong>, T Yang, H Zhang, J Gao, Q Wang",
+    "journal": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "year": "2026",
+    "status": "Highlight",
+    "selected": false,
+    "image": "assets/paper6.png",
+    "github": "https://github.com/mrazhou/BLS",
+    "description": "A dynamic data pruning method based on batch loss scoring, accepted as a CVPR 2026 Highlight paper."
+  },
   {
     "title": "Inconsistency Biases in Dynamic Data Pruning",
     "authors": "Q Zhou, T Yang, <strong>B Zhao</strong>, H Zhang, J Gao, Q Wang",
@@ -17,7 +39,7 @@
     "year": "2025",
     "status": "First Author",
     "selected": true,
-    "image": "assets/paper1.png", 
+    "image": "assets/paper1.png",
     "description": "A novel diffusion-based model for translating SAR images to optical (RGB) images, enhancing structural consistency."
   },
   {

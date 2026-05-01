@@ -220,7 +220,7 @@ function renderNews(profile, honors, publications, education) {
             type: "publication",
             year: Number.parseInt(paper.year, 10) || 0,
             priority: 0,
-            html: `<strong>${paper.year}:</strong> ${paper.title} was published in <em>${paper.journal}</em>.`,
+           html: `<strong>${paper.year}:</strong> ${paper.title} was accepted by <em>${paper.journal}</em>. <strong style="color: #ff6b6b;">${paper.status}</strong>`
         });
     });
 
