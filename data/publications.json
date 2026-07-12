@@ -1,5 +1,15 @@
 [  
-
+  {
+    "title": "SHARP: Spectrum-aware Highly-dynamic Adaptation for Resolution Promotion in Remote Sensing Synthesis",
+    "authors": "<strong>B Zhao</strong>, Q Zhou, C Yang, J GAO, Q Wang",
+    "journal": "ACM International Conference on Multimedia",
+    "year": "2026",
+    "status": "First Author",
+    "selected": true,
+    "image": "assets/paper8.png",
+    "github": "https://github.com/bxuanz/SHARP",
+    "description": "Training-free large-scale remote sensing text-to-image synthesis with an RS-adapted FLUX prior and dynamic positional adaptation."
+  },
   {
     "title": "σ: Sigmoid Modulation for Ultra High Resolution Diffusion",
     "authors": "<strong>B Zhao</strong>, Q Zhou, Y Wang, C Yang, Q Wang",
