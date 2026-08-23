@@ -7,6 +7,8 @@
     "status": "First Author",
     "selected": true,
     "image": "assets/paper8.png",
+    "imageWidth": 1578,
+    "imageHeight": 628,
     "github": "https://github.com/bxuanz/SHARP",
     "description": "Training-free large-scale remote sensing text-to-image synthesis with an RS-adapted FLUX prior and dynamic positional adaptation."
   },
@@ -18,6 +20,8 @@
     "status": "First Author",
     "selected": true,
     "image": "assets/paper7.png",
+    "imageWidth": 1104,
+    "imageHeight": 550,
     "github": "https://github.com/bxuanz/SigMa",
     "description": "A sigmoid-modulated framework for stable and efficient ultra high resolution diffusion generation."
   },
@@ -29,6 +33,8 @@
     "status": "Highlight",
     "selected": false,
     "image": "assets/paper6.png",
+    "imageWidth": 556,
+    "imageHeight": 360,
     "github": "https://github.com/mrazhou/BLS",
     "description": "A dynamic data pruning method based on batch loss scoring, accepted as a CVPR 2026 Highlight paper."
   },
@@ -40,6 +46,8 @@
     "status": "",
     "selected": false,
     "image": "assets/paper5.png",
+    "imageWidth": 4318,
+    "imageHeight": 2451,
     "github": "https://github.com/mrazhou/RePB",
     "description": "A study of inconsistency bias in dynamic data pruning, examining how resampling, local-window pruning, and cumulative temporal rescaling affect training dynamics."
   },
@@ -51,6 +59,8 @@
     "status": "First Author",
     "selected": true,
     "image": "assets/paper1.png",
+    "imageWidth": 1289,
+    "imageHeight": 503,
     "description": "A novel diffusion-based model for translating SAR images to optical (RGB) images, enhancing structural consistency."
   },
   {
@@ -61,6 +71,8 @@
     "status": "Co-first Author",
     "selected": true,
     "image": "assets/paper2.png",
+    "imageWidth": 1049,
+    "imageHeight": 687,
     "github": "https://github.com/omtcyang/MMO-IG.git",
     "description": "A generative framework for synthesizing remote sensing objects across categories and spatial scales."
   },
@@ -72,6 +84,8 @@
     "status": "",
     "selected": false,
     "image": "assets/paper3.png",
+    "imageWidth": 1297,
+    "imageHeight": 732,
     "description": "A text detection approach that improves localization by modeling contour structure and edge approximation."
   },
   {
@@ -82,6 +96,8 @@
     "status": "",
     "selected": false,
     "image": "assets/paper4.png",
+    "imageWidth": 1020,
+    "imageHeight": 727,
     "description": "An interpretable framework that connects traffic sign understanding with natural language generation."
   }
 ]

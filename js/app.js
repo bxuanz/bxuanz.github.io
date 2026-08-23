@@ -220,7 +220,7 @@ function renderNews(profile, honors, publications, education) {
             type: "publication",
             year: Number.parseInt(paper.year, 10) || 0,
             priority: 0,
-           html: `<strong>${paper.year}:</strong> ${paper.title} was accepted by <em>${paper.journal}</em>. <strong style="color: #ff6b6b;">${paper.status}</strong>`
+           html: `<strong>${paper.year}:</strong> ${paper.title} was accepted by <em>${paper.journal}</em>. <strong class="news-status">${paper.status}</strong>`
         });
     });
 
@@ -389,23 +389,34 @@ function renderPublications(publications) {
 }
 
 function renderPublicationCard(paper) {
+    const imageSize = paper.imageWidth && paper.imageHeight
+        ? ` width="${paper.imageWidth}" height="${paper.imageHeight}"`
+        : "";
     const image = paper.image
         ? `
             <div class="publication-image">
-                <img src="${paper.image}" alt="${paper.title}" onerror="this.parentElement.remove()">
+                <img src="${paper.image}" alt="${paper.title}"${imageSize} loading="lazy" decoding="async" onerror="this.parentElement.remove()">
             </div>
         `
         : "";
 
-    const links = [];
+    const metaParts = [];
+    if (paper.year) {
+        metaParts.push(`<span class="publication-year">${paper.year}</span>`);
+    }
     if (validLink(paper.github)) {
-        links.push(
+        metaParts.push(
             `<a class="publication-repo-link" href="${paper.github}" target="_blank" rel="noreferrer" aria-label="GitHub repository for ${paper.title}" title="GitHub repository"><i class="fa-brands fa-github"></i></a>`,
         );
     }
-    links.push(`<span>${paper.journal}</span>`);
+    if (paper.journal) {
+        metaParts.push(`<span class="publication-venue">${paper.journal}</span>`);
+    }
+    if (paper.status) {
+        metaParts.push(`<span class="publication-status">${paper.status}</span>`);
+    }
 
-    const status = paper.status ? `<div class="publication-status">${paper.status}</div>` : "";
+    const metaRow = metaParts.length ? `<div class="publication-meta-row">${metaParts.join("")}</div>` : "";
     const points = paper.description ? `<ul class="publication-points"><li>${paper.description}</li></ul>` : "";
 
     return `
@@ -414,9 +425,7 @@ function renderPublicationCard(paper) {
             <div class="publication-content">
                 <h3 class="publication-title">${paper.title}</h3>
                 <p class="publication-authors">${paper.authors}</p>
-                <p class="publication-meta">${paper.year}</p>
-                <div class="publication-links">${links.join(" ")}</div>
-                ${status}
+                ${metaRow}
                 ${points}
             </div>
         </article>

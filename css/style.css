@@ -11,9 +11,25 @@
     --border: #e5e7eb;
     --border-strong: rgba(183, 193, 208, 0.45);
     --shadow: 0 14px 34px rgba(27, 39, 58, 0.08);
-    --shadow-soft: 0 20px 50px rgba(31, 45, 68, 0.08);
-    --shadow-card: 0 24px 64px rgba(25, 39, 62, 0.08);
+    --shadow-soft: 0 1px 2px rgba(27, 39, 58, 0.04), 0 8px 24px rgba(27, 39, 58, 0.06), 0 20px 50px rgba(31, 45, 68, 0.06);
+    --shadow-card: 0 1px 2px rgba(25, 39, 62, 0.04), 0 10px 28px rgba(25, 39, 62, 0.06), 0 24px 64px rgba(25, 39, 62, 0.07);
     --sidebar-width: 260px;
+    --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Songti SC", "Noto Serif SC", serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, "Cascadia Code", Consolas, "IBM Plex Mono", monospace;
+    --fs-xs: 0.75rem;
+    --fs-sm: 0.85rem;
+    --fs-base: 0.95rem;
+    --fs-md: 1.05rem;
+    --fs-lg: 1.2rem;
+    --fs-xl: 1.5rem;
+    --fs-2xl: 1.9rem;
+    --fs-3xl: 2.25rem;
+    --radius-xl: 28px;
+    --radius-lg: 22px;
+    --radius-md: 16px;
+    --border-card: rgba(218, 224, 233, 0.82);
+    --shadow-row: 0 1px 2px rgba(34, 47, 68, 0.03), 0 10px 24px rgba(34, 47, 68, 0.05);
 }
 
 @font-face {
@@ -31,13 +47,34 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(44, 90, 160, 0.35) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(44, 90, 160, 0.28);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(44, 90, 160, 0.45);
 }
 
 body {
     margin: 0;
     min-height: 100vh;
     color: var(--text);
-    font-family: "IBM Plex Sans", sans-serif;
+    font-family: var(--font-sans);
+    font-size: var(--fs-base);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -95,8 +132,8 @@ img {
 }
 
 .nav-brand {
-    font-family: "Source Serif 4", "Noto Serif SC", serif;
-    font-size: 1.55rem;
+    font-family: var(--font-serif);
+    font-size: var(--fs-xl);
     font-weight: 700;
     color: var(--text-strong);
     text-decoration: none;
@@ -107,8 +144,9 @@ img {
     display: flex;
     align-items: center;
     gap: 1.4rem;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.78rem;
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
+    font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
@@ -125,8 +163,9 @@ img {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -0.3rem;
-    height: 1px;
+    bottom: -0.35rem;
+    height: 2px;
+    border-radius: 999px;
     transform: scaleX(0);
     transform-origin: center;
     background: rgba(44, 90, 160, 0.5);
@@ -165,7 +204,7 @@ img {
     gap: 1.3rem;
     padding: 1.5rem;
     border: 1px solid var(--border-strong);
-    border-radius: 30px;
+    border-radius: var(--radius-xl);
     background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.82) 100%);
     box-shadow: var(--shadow-card);
@@ -177,10 +216,10 @@ img {
     aspect-ratio: 1;
     overflow: hidden;
     border-radius: 999px;
-    border: 5px solid rgba(255, 255, 255, 0.96);
+    border: 4px solid rgba(255, 255, 255, 0.96);
     box-shadow:
-        0 18px 40px rgba(28, 42, 65, 0.12),
-        0 0 0 1px rgba(44, 90, 160, 0.1);
+        0 0 0 3px rgba(44, 90, 160, 0.14),
+        0 18px 40px rgba(28, 42, 65, 0.13);
     background: #fff;
 }
 
@@ -199,9 +238,9 @@ img {
 .profile-name {
     margin: 0;
     color: var(--text-strong);
-    font-family: "Source Serif 4", "Noto Serif SC", serif;
-    font-size: 2.3rem;
-    line-height: 1;
+    font-family: var(--font-serif);
+    font-size: var(--fs-3xl);
+    line-height: 1.15;
     letter-spacing: -0.03em;
 }
 
@@ -216,24 +255,23 @@ img {
 
 .profile-role {
     color: var(--accent);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.76rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     line-height: 1.5;
 }
 
 .profile-affiliation {
     color: var(--text);
-    font-family: "Source Serif 4", "Noto Serif SC", serif;
-    font-size: 1.06rem;
-    letter-spacing: -0.01em;
+    font-family: var(--font-serif);
+    font-size: var(--fs-md);
 }
 
 .profile-focus {
     color: var(--muted);
-    font-size: 0.98rem;
+    font-size: var(--fs-base);
 }
 
 .profile-motto {
@@ -244,7 +282,7 @@ img {
     padding: 1.12rem 1.15rem 1.18rem 1.25rem;
     border: 1px solid rgba(44, 90, 160, 0.12);
     border-left: 4px solid rgba(44, 90, 160, 0.26);
-    border-radius: 0 18px 18px 0;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
     background: linear-gradient(180deg, rgba(44, 90, 160, 0.06), rgba(44, 90, 160, 0.03));
     color: #2f3640;
     font-family: "MaoTi", "STKaiti", "Kaiti SC", "Noto Serif SC", serif;
@@ -268,7 +306,7 @@ img {
 
 .avatar-caption {
     color: var(--muted);
-    font-size: 0.8rem;
+    font-size: var(--fs-sm);
 }
 
 .profile-meta {
@@ -281,9 +319,12 @@ img {
     display: flex;
     align-items: center;
     gap: 0.8rem;
+    min-width: 0;
+    overflow: hidden;
+    min-height: 2.9rem;
     padding: 0.72rem 0.85rem;
-    border: 1px solid rgba(218, 224, 232, 0.8);
-    border-radius: 16px;
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
     background: rgba(255, 255, 255, 0.62);
     color: var(--text);
     text-decoration: none;
@@ -301,8 +342,22 @@ img {
 }
 
 .profile-meta-row span {
-    font-size: 0.95rem;
-    letter-spacing: 0.01em;
+    min-width: 0;
+    font-size: var(--fs-base);
+    overflow-wrap: anywhere;
+}
+
+.profile-meta-row#profile-email-link {
+    gap: 0.6rem;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+}
+
+.profile-meta-row #profile-email {
+    font-size: var(--fs-xs);
+    letter-spacing: 0;
+    line-height: 1.4;
+    word-break: break-all;
 }
 
 .profile-meta-row:hover,
@@ -327,12 +382,23 @@ img {
     border: 1px solid rgba(44, 90, 160, 0.12);
     background: rgba(44, 90, 160, 0.07);
     color: var(--accent);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.76rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
     font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease,
+        transform 180ms ease;
+}
+
+.focus-tag:hover,
+.focus-tag:focus-visible {
+    background: rgba(44, 90, 160, 0.13);
+    border-color: rgba(44, 90, 160, 0.24);
+    transform: translateY(-1px);
 }
 
 .profile-sidebar-sections {
@@ -343,7 +409,8 @@ img {
 
 .sidebar-section {
     padding-top: 1.2rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(90deg, rgba(44, 90, 160, 0.28), rgba(229, 231, 235, 0.9) 45%, rgba(229, 231, 235, 0)) 1;
 }
 
 .sidebar-section-last {
@@ -360,9 +427,9 @@ img {
     align-items: center;
     gap: 0.55rem;
     color: var(--text-strong);
-    font-family: "Source Serif 4", "Noto Serif SC", serif;
-    font-size: 1.15rem;
-    line-height: 1.25;
+    font-family: var(--font-serif);
+    font-size: var(--fs-lg);
+    line-height: 1.3;
     letter-spacing: -0.02em;
 }
 
@@ -373,19 +440,19 @@ img {
 }
 
 .profile-sidebar-sections .list-title {
-    font-size: 0.98rem;
-    line-height: 1.5;
+    font-size: var(--fs-base);
+    line-height: 1.35;
 }
 
 .profile-sidebar-sections .list-subtitle,
 .profile-sidebar-sections .list-description {
-    font-size: 0.92rem;
-    line-height: 1.65;
+    font-size: var(--fs-sm);
+    line-height: 1.6;
 }
 
 .profile-sidebar-sections .list-year {
     color: var(--muted);
-    font-size: 0.74rem;
+    font-size: var(--fs-xs);
 }
 
 .profile-sidebar-sections .interest-grid {
@@ -411,7 +478,7 @@ img {
     padding: 2rem 2.2rem 2.15rem;
     margin-bottom: 0;
     border: 1px solid var(--border-strong);
-    border-radius: 30px;
+    border-radius: var(--radius-xl);
     background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.78) 100%);
     box-shadow: var(--shadow-soft);
@@ -442,11 +509,24 @@ img {
 }
 
 .section-header {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 1.45rem;
+    padding-bottom: 0.85rem;
+    margin-bottom: 1.15rem;
+}
+
+.section-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 68px;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(44, 90, 160, 0.55), rgba(44, 90, 160, 0.08));
 }
 
 .section-title {
@@ -455,9 +535,9 @@ img {
     align-items: center;
     gap: 0.65rem;
     color: var(--text-strong);
-    font-family: "Source Serif 4", "Noto Serif SC", serif;
-    font-size: 2.05rem;
-    line-height: 1.15;
+    font-family: var(--font-serif);
+    font-size: var(--fs-2xl);
+    line-height: 1.25;
     letter-spacing: -0.03em;
 }
 
@@ -470,7 +550,7 @@ img {
     border: 1px solid rgba(44, 90, 160, 0.12);
     border-radius: 999px;
     background: rgba(44, 90, 160, 0.06);
-    font-size: 1.2rem;
+    font-size: var(--fs-lg);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
@@ -479,8 +559,8 @@ img {
     border-radius: 999px;
     background: var(--surface-strong);
     color: var(--text);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 0.65rem 0.95rem;
@@ -503,20 +583,19 @@ img {
 .lead-paragraph,
 .body-paragraph {
     margin: 0;
-    font-family: "Source Serif 4", "Noto Serif SC", serif;
-    line-height: 1.9;
-    letter-spacing: -0.01em;
+    font-family: var(--font-serif);
+    line-height: 1.65;
     text-wrap: pretty;
 }
 
 .lead-paragraph {
-    font-size: 1.16rem;
+    font-size: var(--fs-md);
 }
 
 .body-paragraph {
     margin-top: 1rem;
     color: var(--muted);
-    font-size: 1.04rem;
+    font-size: var(--fs-base);
 }
 
 .lead-paragraph strong,
@@ -540,19 +619,20 @@ img {
 }
 
 .note-list li {
-    display: flex;
-    gap: 0.75rem;
-    font-family: "Source Serif 4", "Noto Serif SC", serif;
-    font-size: 1.03rem;
-    line-height: 1.8;
-    letter-spacing: -0.01em;
+    position: relative;
+    padding-left: 1.55rem;
+    font-family: var(--font-serif);
+    font-size: var(--fs-base);
+    line-height: 1.65;
     text-wrap: pretty;
 }
 
 .note-list li::before {
     content: "\2726";
+    position: absolute;
+    left: 0;
+    top: 0;
     color: var(--accent);
-    flex-shrink: 0;
 }
 
 .news-list {
@@ -566,15 +646,14 @@ img {
 .news-list li {
     position: relative;
     padding: 0.9rem 1rem 0.9rem 1.35rem;
-    border: 1px solid rgba(220, 225, 234, 0.82);
-    border-radius: 18px;
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
     background: rgba(255, 255, 255, 0.66);
-    font-family: "Source Serif 4", "Noto Serif SC", serif;
-    font-size: 1.02rem;
-    line-height: 1.8;
-    letter-spacing: -0.01em;
+    font-family: var(--font-serif);
+    font-size: var(--fs-base);
+    line-height: 1.65;
     text-wrap: pretty;
-    box-shadow: 0 10px 24px rgba(34, 47, 68, 0.04);
+    box-shadow: var(--shadow-row);
 }
 
 .news-list .news-item {
@@ -596,7 +675,7 @@ img {
     width: 1.55rem;
     min-width: 1.55rem;
     padding-top: 0.08rem;
-    font-size: 1rem;
+    font-size: var(--fs-base);
     line-height: 1;
     filter: saturate(1.05);
 }
@@ -610,6 +689,10 @@ img {
     color: var(--accent);
 }
 
+.news-list .news-status {
+    color: #ff6b6b;
+}
+
 .news-accent {
     align-self: end;
     justify-self: end;
@@ -617,7 +700,7 @@ img {
     align-items: center;
     justify-content: center;
     min-width: 1.4rem;
-    font-size: 1rem;
+    font-size: var(--fs-base);
     line-height: 1;
     opacity: 0.95;
 }
@@ -643,7 +726,7 @@ img {
 
 .empty-copy {
     color: var(--muted);
-    line-height: 1.7;
+    line-height: 1.65;
 }
 
 .publication-list {
@@ -655,22 +738,32 @@ img {
 .publication-item {
     display: grid;
     grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
-    align-items: center; 
+    align-items: center;
+    gap: 1.4rem;
     padding: 1.4rem;
-    border: 1px solid rgba(217, 223, 232, 0.82);
-    border-radius: 24px;
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-lg);
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(249, 251, 255, 0.74) 100%);
-    box-shadow: 0 16px 34px rgba(27, 39, 58, 0.06);
+    box-shadow: 0 1px 2px rgba(27, 39, 58, 0.04), 0 16px 34px rgba(27, 39, 58, 0.06);
+    transition:
+        transform 200ms ease,
+        box-shadow 200ms ease,
+        border-color 200ms ease;
 }
 
-.publication-image {
-    /* align-self: start; */
+.publication-item:hover,
+.publication-item:focus-within {
+    transform: translateY(-2px);
+    border-color: rgba(44, 90, 160, 0.2);
+    box-shadow: 0 2px 4px rgba(27, 39, 58, 0.05), 0 22px 44px rgba(27, 39, 58, 0.1);
 }
 
 .publication-image img {
+    display: block;
     width: 100%;
+    height: auto;
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     background: #fff;
     box-shadow: 0 16px 32px rgba(33, 47, 70, 0.09);
 }
@@ -684,48 +777,40 @@ img {
 .publication-title {
     margin: 0;
     color: var(--accent);
-    font-size: 1.48rem;
-    line-height: 1.3;
-    font-family: "Source Serif 4", "Noto Serif SC", serif;
-    letter-spacing: -0.02em;
+    font-size: var(--fs-md);
+    line-height: 1.35;
+    font-family: var(--font-serif);
+    font-weight: 700;
 }
 
-.publication-authors,
-.publication-meta {
-    margin: 0.55rem 0 0;
-    line-height: 1.8;
+.publication-authors {
+    margin: 0.42rem 0 0;
+    line-height: 1.55;
+    font-size: var(--fs-sm);
 }
 
-.publication-meta {
-    color: var(--muted);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.publication-links {
+.publication-meta-row {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.8rem;
-    margin-top: 0.85rem;
+    gap: 0.45rem 0.6rem;
+    margin-top: 0.6rem;
 }
 
-.publication-links a,
-.publication-links span {
-    font-size: 0.98rem;
-}
-
-.publication-links a {
-    color: var(--accent);
-    text-decoration: none;
-}
-
-.publication-links span {
+.publication-year {
     color: var(--muted);
-    text-decoration: none;
-    padding: 0.3rem 0.55rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+}
+
+.publication-venue {
+    color: var(--muted);
+    font-size: var(--fs-sm);
+    line-height: 1.35;
+    padding: 0.26rem 0.55rem;
     border-radius: 999px;
     background: rgba(44, 90, 160, 0.05);
 }
@@ -734,8 +819,8 @@ img {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2rem;
-    height: 2rem;
+    width: 1.7rem;
+    height: 1.7rem;
     border: 1px solid rgba(44, 90, 160, 0.18);
     border-radius: 999px;
     background: var(--accent-soft);
@@ -751,27 +836,28 @@ img {
 }
 
 .publication-repo-link i {
-    font-size: 1rem;
+    font-size: var(--fs-sm);
     line-height: 1;
 }
 
 .publication-status {
     display: inline-flex;
     align-items: center;
-    margin-top: 0.95rem;
-    padding: 0.3rem 0.7rem;
+    padding: 0.24rem 0.6rem;
     border-radius: 999px;
     background: var(--accent-soft);
     color: var(--accent);
-    font-size: 0.8rem;
+    font-size: var(--fs-sm);
     font-weight: 600;
-    letter-spacing: 0.02em;
+    line-height: 1.3;
 }
 
 .publication-points {
-    padding-left: 1.2rem;
+    margin-top: 0.65rem;
+    padding-left: 1.1rem;
     color: var(--text);
-    line-height: 1.75;
+    font-size: var(--fs-base);
+    line-height: 1.6;
 }
 
 .simple-list {
@@ -790,10 +876,10 @@ img {
 .content-column .list-row {
     padding: 1rem 1.1rem;
     border-top: none;
-    border: 1px solid rgba(220, 225, 234, 0.82);
-    border-radius: 18px;
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
     background: rgba(255, 255, 255, 0.68);
-    box-shadow: 0 10px 24px rgba(34, 47, 68, 0.04);
+    box-shadow: var(--shadow-row);
     transition:
         border-color 160ms ease,
         transform 160ms ease,
@@ -818,31 +904,30 @@ img {
 .list-title {
     margin: 0;
     color: var(--text-strong);
-    font-family: "Source Serif 4", "Noto Serif SC", serif;
-    font-size: 1.1rem;
+    font-family: var(--font-serif);
+    font-size: var(--fs-md);
     font-weight: 600;
-    line-height: 1.45;
-    letter-spacing: -0.01em;
+    line-height: 1.35;
 }
 
 .list-subtitle,
 .list-description {
     margin: 0.2rem 0 0;
     color: var(--muted);
-    font-family: "Source Serif 4", "Noto Serif SC", serif;
-    font-size: 1rem;
-    line-height: 1.75;
-    letter-spacing: -0.01em;
+    font-family: var(--font-serif);
+    font-size: var(--fs-base);
+    line-height: 1.65;
     text-wrap: pretty;
 }
 
 .list-year {
     align-self: start;
     color: var(--text-strong);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
     letter-spacing: 0.06em;
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
 }
 
 .interest-grid {
@@ -861,7 +946,7 @@ img {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 249, 252, 0.82));
     color: var(--text);
     text-decoration: none;
-    box-shadow: 0 10px 20px rgba(31, 45, 68, 0.05);
+    box-shadow: var(--shadow-row);
     transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
 }
 
@@ -891,8 +976,8 @@ img {
 
 .site-footer p {
     margin: 0;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.76rem;
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
@@ -925,6 +1010,17 @@ img {
 }
 
 @media (max-width: 767px) {
+    :root {
+        --fs-xs: 0.72rem;
+        --fs-sm: 0.82rem;
+        --fs-base: 0.92rem;
+        --fs-md: 1rem;
+        --fs-lg: 1.12rem;
+        --fs-xl: 1.35rem;
+        --fs-2xl: 1.6rem;
+        --fs-3xl: 1.9rem;
+    }
+
     .nav-inner,
     .page-shell,
     .site-footer {
@@ -942,17 +1038,12 @@ img {
         overflow-x: auto;
         padding-bottom: 0.15rem;
         gap: 1rem;
-        font-size: 0.74rem;
         white-space: nowrap;
     }
 
     .section-header {
         align-items: flex-start;
         flex-direction: column;
-    }
-
-    .section-title {
-        font-size: 1.8rem;
     }
 
     .publication-item,
@@ -965,7 +1056,7 @@ img {
     }
 
     .profile-sidebar-inner {
-        border-radius: 24px;
+        border-radius: var(--radius-lg);
     }
 
     .profile-motto {
@@ -981,7 +1072,7 @@ img {
 
     .content-section {
         padding: 1.4rem 1.2rem 1.5rem;
-        border-radius: 24px;
+        border-radius: var(--radius-lg);
     }
 
     .content-section::before {
@@ -991,7 +1082,11 @@ img {
 
     .publication-item {
         padding: 1rem;
-        border-radius: 20px;
+        gap: 1rem;
+    }
+
+    .publication-image img {
+        height: auto;
     }
 
     .news-list li,
@@ -1002,11 +1097,6 @@ img {
     .news-list .news-item {
         gap: 0.62rem;
         padding: 0.9rem;
-    }
-
-    .news-marker,
-    .news-accent {
-        font-size: 0.96rem;
     }
 }
 
