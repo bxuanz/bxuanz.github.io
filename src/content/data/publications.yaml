@@ -1,0 +1,106 @@
+# 论文列表。网页上按年份倒序排，同一年内按这里的书写顺序排。
+#
+# 默认只显示自己一作和共一的，其余折叠起来，点「显示全部」才展开。
+#
+# 字段说明：
+#   authors     作者列表，自己的名字用 <strong> 包起来
+#   venue       会议/期刊全称        venueShort  缩写
+#   status      角标列表，可以挂多个：first 第一作者 / cofirst 共同一作 /
+#               highlight 亮点论文。写成 [first] 或 [first, highlight]。
+#               含 first 或 cofirst 的默认显示；整行不写就是没有角标。
+#   image       配图路径，放在 public/assets/ 下；可省略
+#   github      代码仓库；可省略
+#   description 中英文摘要说明，两种语言都要填
+#
+# 新增一篇：复制下面任意一段（连开头的 - 一起），改内容即可。
+# 标题里含冒号必须加引号。
+
+- title: "SHARP: Spectrum-aware Highly-dynamic Adaptation for Resolution Promotion in Remote Sensing Synthesis"
+  authors: "<strong>B Zhao</strong>, Q Zhou, C Yang, J Gao, Q Wang"
+  venue: ACM International Conference on Multimedia (ACM MM)
+  venueShort: ACM MM
+  year: "2026"
+  status: [first]
+  image: /assets/paper8.png
+  github: https://github.com/bxuanz/SHARP
+  description:
+    en: Training-free large-scale remote sensing text-to-image synthesis with an RS-adapted FLUX prior and dynamic positional adaptation.
+    zh: 免训练的大尺度遥感文生图方法，结合面向遥感适配的 FLUX 先验与动态位置自适应。
+
+- title: "σ: Sigmoid Modulation for Ultra High Resolution Diffusion"
+  authors: "<strong>B Zhao</strong>, Q Zhou, Y Wang, C Yang, Q Wang"
+  venue: International Conference on Machine Learning (ICML)
+  venueShort: ICML
+  year: "2026"
+  status: [first]
+  image: /assets/paper7.png
+  github: https://github.com/bxuanz/SigMa
+  description:
+    en: A sigmoid-modulated framework for stable and efficient ultra high resolution diffusion generation.
+    zh: 基于 sigmoid 调制的框架，实现稳定高效的超高分辨率扩散生成。
+
+- title: Batch Loss Score for Dynamic Data Pruning
+  authors: "Q Zhou, <strong>B Zhao</strong>, T Yang, H Zhang, J Gao, Q Wang"
+  venue: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)
+  venueShort: CVPR
+  year: "2026"
+  status: [highlight]
+  image: /assets/paper6.png
+  github: https://github.com/mrazhou/BLS
+  description:
+    en: A dynamic data pruning method based on batch loss scoring, accepted as a CVPR 2026 Highlight paper.
+    zh: 基于批次损失打分的动态数据剪枝方法，入选 CVPR 2026 Highlight。
+
+- title: Inconsistency Biases in Dynamic Data Pruning
+  authors: "Q Zhou, T Yang, <strong>B Zhao</strong>, H Zhang, J Gao, Q Wang"
+  venue: International Conference on Learning Representations (ICLR)
+  venueShort: ICLR
+  year: "2026"
+  image: /assets/paper5.png
+  github: https://github.com/mrazhou/RePB
+  description:
+    en: A study of inconsistency bias in dynamic data pruning, examining how resampling, local-window pruning, and cumulative temporal rescaling affect training dynamics.
+    zh: 研究动态数据剪枝中的不一致性偏差，考察重采样、局部窗口剪枝与累积时间重缩放对训练动态的影响。
+
+- title: "RLI-DM: Robust Layout-Based Iterative Diffusion Model for SAR-to-RGB Image Translation"
+  authors: "<strong>B Zhao</strong>, C Yang, Q Zhou, Q Wang"
+  venue: IEEE Transactions on Geoscience and Remote Sensing (T-GRS)
+  venueShort: T-GRS
+  year: "2025"
+  status: [first]
+  image: /assets/paper1.png
+  description:
+    en: A diffusion-based model for translating SAR images to optical (RGB) images, enhancing structural consistency.
+    zh: 基于扩散模型的 SAR 到光学（RGB）图像转换方法，显著提升结构一致性。
+
+- title: "MMO-IG: Multi-Class and Multi-Scale Object Image Generation for Remote Sensing"
+  authors: "C Yang, <strong>B Zhao</strong>, Q Zhou, Q Wang"
+  venue: IEEE Transactions on Geoscience and Remote Sensing (T-GRS)
+  venueShort: T-GRS
+  year: "2025"
+  status: [cofirst]
+  image: /assets/paper2.png
+  github: https://github.com/omtcyang/MMO-IG.git
+  description:
+    en: A generative framework for synthesizing remote sensing objects across categories and spatial scales.
+    zh: 面向遥感的生成框架，可跨类别与跨空间尺度合成目标。
+
+- title: Edge Approximation Text Detector
+  authors: "C Yang, X Han, T Han, H Han, <strong>B Zhao</strong>, Q Wang"
+  venue: IEEE Transactions on Circuits and Systems for Video Technology (T-CSVT)
+  venueShort: T-CSVT
+  year: "2025"
+  image: /assets/paper3.png
+  description:
+    en: A text detection approach that improves localization by modeling contour structure and edge approximation.
+    zh: 通过建模轮廓结构与边缘逼近来提升定位精度的文本检测方法。
+
+- title: Traffic Sign Interpretation via Natural Language Description
+  authors: "C Yang, K Zhuang, M Chen, H Ma, X Han, T Han, C Guo, H Han, <strong>B Zhao</strong>, et al."
+  venue: IEEE Transactions on Intelligent Transportation Systems (T-ITS)
+  venueShort: T-ITS
+  year: "2024"
+  image: /assets/paper4.png
+  description:
+    en: An interpretable framework that connects traffic sign understanding with natural language generation.
+    zh: 将交通标志理解与自然语言生成相连接的可解释框架。

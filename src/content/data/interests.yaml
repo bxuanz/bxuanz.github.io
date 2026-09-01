@@ -1,0 +1,27 @@
+# 侧栏的兴趣爱好。文件顺序 = 显示顺序。
+# link 可以留空（写 ""），留空时只显示文字、不加超链接。
+
+- name:
+    en: Reading
+    zh: 阅读
+  link: https://www.notion.so/2b8d4bdb2425808b9788dcc2d89f5a19?source=copy_link
+
+- name:
+    en: Photography
+    zh: 摄影
+  link: https://instagram.com
+
+- name:
+    en: Movie & TV
+    zh: 影视
+  link: https://www.notion.so/2bad4bdb24258046ac6bc218d5b597f1?source=copy_link
+
+- name:
+    en: Sports
+    zh: 运动
+  link: ""
+
+- name:
+    en: Music
+    zh: 音乐
+  link: https://www.notion.so/2b8d4bdb242580069184dbd838207ada?source=copy_link

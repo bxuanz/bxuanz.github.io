@@ -1,0 +1,37 @@
+# 个人信息。这里的字段决定侧栏和「关于」段落。
+#
+# 规则：带 en / zh 的字段必须两种语言都填，缺一个构建会直接报错并指出字段名。
+# bio / researchStatement / collaboration 允许写 <strong> 等简单 HTML。
+
+name:
+  en: Bingxuan Zhao
+  zh: 赵炳轩
+title:
+  en: Ph.D. Candidate in Computer Science and Engineering
+  zh: 计算机科学与技术 博士研究生
+university:
+  en: Northwestern Polytechnical University
+  zh: 西北工业大学
+location:
+  en: Xi'an, China
+  zh: 中国 西安
+email: bxuanzhao202@gmail.com
+avatar: /assets/1.jpg
+# motto 用行书字体显示，字体只裁了下面这句话的字。
+# 改了这句话要重新裁剪（命令写在 src/pages/index.astro 的 @font-face 上方），
+# 否则新字会变回普通衬线体。
+motto: 俱往矣，数风流人物，还看今朝。
+bio:
+  en: "Focusing on <strong>Computer Vision</strong>, <strong>Generative AI</strong>, and <strong>Remote Sensing</strong>. Dedicated to exploring the boundaries of robust image translation and generation."
+  zh: "研究方向为<strong>计算机视觉</strong>、<strong>生成式人工智能</strong>与<strong>遥感</strong>，致力于探索鲁棒图像转换与生成的边界。"
+researchStatement:
+  en: My current work investigates how generative models and robust visual representations can support trustworthy translation, synthesis, and interpretation of complex remote sensing imagery.
+  zh: 当前工作探究生成模型与鲁棒视觉表征如何支撑复杂遥感影像的可信转换、合成与解译。
+collaboration:
+  en: If you are interested in collaboration or discussion, feel free to reach out via email.
+  zh: 如有合作或交流意向，欢迎通过邮件与我联系。
+links:
+  github: https://github.com/bxuanz
+  scholar: https://scholar.google.com/citations?user=t8k-A3wAAAAJ&hl=zh-CN
+  # 把 cv.pdf 放进 public/ 后，这里填 /cv.pdf，侧栏就会自动出现 CV 链接。
+  cv: ""

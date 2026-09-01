@@ -1,0 +1,784 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import T from '../components/T.astro';
+import { ui, statusLabel } from '../i18n/ui';
+
+const profileEntry = await getEntry('profile', 'main');
+if (!profileEntry) {
+	throw new Error('src/content/data/profile.yaml 缺少顶层的 main 条目');
+}
+const profile = profileEntry.data;
+
+const focusAreas = (await getCollection('focusAreas')).map((e) => e.data);
+const interests = (await getCollection('interests')).map((e) => e.data);
+const education = (await getCollection('education')).map((e) => e.data);
+const honors = (await getCollection('honors')).map((e) => e.data);
+
+// 展开后按年份倒序。sort 是稳定的，所以同一年内仍保持 YAML 里的书写顺序。
+const publications = (await getCollection('publications'))
+	.map((e) => e.data)
+	.sort((a, b) => Number(b.year) - Number(a.year));
+
+// News 由论文数据自动生成，避免同一信息在两处维护。
+const news = publications.filter((p) => Number(p.year) >= 2025);
+
+// 折叠状态下只显示自己一作和共一的工作，其余点「显示全部」才出现。
+const isLead = (status: string[]) =>
+	status.includes('first') || status.includes('cofirst');
+
+const pillClass = (status: string) =>
+	status === 'highlight' ? 'pill pill--gold' : 'pill pill--accent';
+
+const label = (status: string) =>
+	statusLabel[status as keyof typeof statusLabel];
+
+const sidebarLinks = [
+	{ href: `mailto:${profile.email}`, text: profile.email },
+	{ href: profile.links.github, text: 'GitHub' },
+	{ href: profile.links.scholar, text: 'Google Scholar' },
+	...(profile.links.cv ? [{ href: profile.links.cv, text: 'CV' }] : []),
+];
+---
+
+<BaseLayout
+	titleEn="Bingxuan Zhao | Academic Homepage"
+	titleZh="赵炳轩 | 个人主页"
+	description="Bingxuan Zhao — Ph.D. candidate at Northwestern Polytechnical University working on computer vision, generative AI and remote sensing."
+	layout="sidebar"
+>
+	<!-- ═══════════════════ 侧栏 ═══════════════════ -->
+	<div slot="sidebar" class="profile">
+		<img
+			class="avatar"
+			src={profile.avatar}
+			alt="Bingxuan Zhao"
+			width="148"
+			height="148"
+		/>
+
+		<h1 class="profile-name">
+			<T en={profile.name.en} zh={profile.name.zh} />
+		</h1>
+
+		<p class="profile-title">
+			<T en={profile.title.en} zh={profile.title.zh} />
+		</p>
+
+		<p class="profile-org">
+			<T en={profile.university.en} zh={profile.university.zh} />
+		</p>
+
+		<p class="motto">{profile.motto}</p>
+
+		<p class="profile-loc">
+			<T en={profile.location.en} zh={profile.location.zh} />
+		</p>
+
+		<ul class="link-list">
+			{
+				sidebarLinks.map((l) => (
+					<li>
+						<a href={l.href} rel="noreferrer">
+							{l.text}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+
+		<div class="focus-tags">
+			{
+				focusAreas.map((f) => (
+					<span class="pill">
+						<T en={f.en} zh={f.zh} />
+					</span>
+				))
+			}
+		</div>
+
+		<div class="side-block">
+			<h2 class="side-title">
+				<T en={ui.section.interests.en} zh={ui.section.interests.zh} />
+			</h2>
+			<ul class="interest-list">
+				{
+					interests.map((i) => (
+						<li>
+							{i.link ? (
+								<a href={i.link} rel="noreferrer">
+									<T en={i.name.en} zh={i.name.zh} />
+								</a>
+							) : (
+								<span>
+									<T en={i.name.en} zh={i.name.zh} />
+								</span>
+							)}
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</div>
+
+	<!-- ═══════════════════ 正文 ═══════════════════ -->
+	<section class="section" id="about">
+		<div class="section-head">
+			<h2><T en={ui.section.about.en} zh={ui.section.about.zh} /></h2>
+		</div>
+		<T tag="p" class="lede" en={profile.bio.en} zh={profile.bio.zh} />
+		<T
+			tag="p"
+			en={profile.researchStatement.en}
+			zh={profile.researchStatement.zh}
+		/>
+		<T
+			tag="p"
+			class="note"
+			en={profile.collaboration.en}
+			zh={profile.collaboration.zh}
+		/>
+	</section>
+
+	<section class="section" id="news">
+		<div class="section-head">
+			<h2><T en={ui.section.news.en} zh={ui.section.news.zh} /></h2>
+		</div>
+		<ul class="news-list">
+			{
+				news.map((n) => (
+					<li>
+						<span class="news-year">{n.year}</span>
+						<span class="news-body">
+							<span class="news-title">{n.title}</span>
+							<span class="news-venue">
+								<T en="accepted by" zh="录用于" />
+								{' '}{n.venue}
+								{n.status.map((s) => (
+									<span class={pillClass(s)}>
+										<T en={label(s).en} zh={label(s).zh} />
+									</span>
+								))}
+							</span>
+						</span>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<section class="section" id="publications">
+		<div class="section-head">
+			<h2>
+				<T en={ui.section.publications.en} zh={ui.section.publications.zh} />
+			</h2>
+			<button
+				id="pub-toggle"
+				type="button"
+				class="lang-btn pub-toggle"
+				aria-expanded="false"
+			>
+				<span data-state="collapsed">
+					<T en={ui.label.showAll.en} zh={ui.label.showAll.zh} />
+				</span>
+				<span data-state="expanded" hidden>
+					<T en={ui.label.showLess.en} zh={ui.label.showLess.zh} />
+				</span>
+			</button>
+		</div>
+
+		<ul class="pub-list">
+			{
+				publications.map((p) => (
+					<li class="pub" data-lead={isLead(p.status) ? 'true' : 'false'}>
+						{p.image && (
+							<div class="pub-thumb">
+								<img src={p.image} alt={p.title} loading="lazy" />
+							</div>
+						)}
+						<div class="pub-body">
+							<h3 class="pub-title">{p.title}</h3>
+							<p class="pub-authors" set:html={p.authors} />
+							<p class="pub-venue">
+								<span class="pub-venue-name">{p.venue}</span>
+								<span class="pub-year">{p.year}</span>
+								{p.status.map((s) => (
+									<span class={pillClass(s)}>
+										<T en={label(s).en} zh={label(s).zh} />
+									</span>
+								))}
+							</p>
+							<T
+								tag="p"
+								class="pub-desc"
+								en={p.description.en}
+								zh={p.description.zh}
+							/>
+							{p.github && (
+								<p class="pub-links">
+									<a href={p.github} rel="noreferrer">
+										<T en={ui.label.code.en} zh={ui.label.code.zh} /> ↗
+									</a>
+								</p>
+							)}
+						</div>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<section class="section" id="education">
+		<div class="section-head">
+			<h2><T en={ui.section.education.en} zh={ui.section.education.zh} /></h2>
+		</div>
+		<ul class="timeline">
+			{
+				education.map((e) => (
+					<li>
+						<div class="timeline-head">
+							<h3>
+								<T en={e.degree.en} zh={e.degree.zh} />
+							</h3>
+							<span class="meta">
+								<T en={e.year.en} zh={e.year.zh} />
+							</span>
+						</div>
+						<p class="timeline-org">
+							{e.logo && (
+								<img
+									class="school-logo"
+									src={e.logo}
+									alt=""
+									width="30"
+									height="30"
+									loading="lazy"
+								/>
+							)}
+							<T en={e.school.en} zh={e.school.zh} />
+						</p>
+						<T
+							tag="p"
+							class="timeline-desc"
+							en={e.description.en}
+							zh={e.description.zh}
+						/>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<section class="section" id="honors">
+		<div class="section-head">
+			<h2><T en={ui.section.honors.en} zh={ui.section.honors.zh} /></h2>
+		</div>
+		<ul class="honor-list">
+			{
+				honors.map((h) => (
+					<li>
+						<span class="honor-year">{h.year}</span>
+						<span class="honor-body">
+							<span class="honor-title">
+								<T en={h.title.en} zh={h.title.zh} />
+							</span>
+							<span class="honor-issuer">
+								<T en={h.issuer.en} zh={h.issuer.zh} />
+							</span>
+						</span>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</BaseLayout>
+
+<script is:inline>
+	(function () {
+		var btn = document.getElementById('pub-toggle');
+		var list = document.querySelector('.pub-list');
+		if (!btn || !list) return;
+
+		var collapsedLabel = btn.querySelector('[data-state="collapsed"]');
+		var expandedLabel = btn.querySelector('[data-state="expanded"]');
+		var extras = [].filter.call(
+			list.querySelectorAll('.pub'),
+			function (el) {
+				return el.dataset.lead !== 'true';
+			},
+		);
+
+		function apply(expanded) {
+			extras.forEach(function (el) {
+				el.hidden = !expanded;
+			});
+			collapsedLabel.hidden = expanded;
+			expandedLabel.hidden = !expanded;
+			btn.setAttribute('aria-expanded', String(expanded));
+		}
+
+		var expanded = false;
+		apply(expanded);
+		btn.addEventListener('click', function () {
+			expanded = !expanded;
+			apply(expanded);
+		});
+	})();
+</script>
+
+<style>
+	/* ───────────── 侧栏 ───────────── */
+	.profile {
+		text-align: center;
+	}
+
+	.avatar {
+		width: 148px;
+		height: 148px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 3px solid var(--surface);
+		box-shadow: var(--shadow-card);
+		margin-bottom: 1.1rem;
+	}
+
+	.profile-name {
+		font-size: 1.5rem;
+		margin: 0 0 0.35rem;
+	}
+
+	.profile-title {
+		font-size: 0.78rem;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--muted);
+		margin: 0 0 0.3rem;
+		line-height: 1.5;
+	}
+
+	.profile-org {
+		font-family: var(--font-serif);
+		font-size: 0.97rem;
+		color: var(--text-strong);
+		margin: 0 0 1.1rem;
+	}
+
+	/* 钟齐志莽行书（SIL OFL），只裁了 motto 这几个字，4.4KB。
+	   换 motto 文字后要重新裁剪，否则新字会落回下面的衬线体：
+	     pyftsubset ZhiMangXing-Regular.ttf --text="新的句子" --flavor=woff2 \
+	       --layout-features='' --no-hinting --output-file=zhimangxing-motto.woff2 */
+	@font-face {
+		font-family: 'ZhiMangXing Motto';
+		src: url('/fonts/zhimangxing-motto.woff2') format('woff2');
+		font-display: swap;
+	}
+
+	.motto {
+		font-family: 'ZhiMangXing Motto', var(--font-serif);
+		font-size: 1.25rem;
+		color: var(--muted);
+		line-height: 1.65;
+		margin: 0 0 1rem;
+		padding: 0.9rem 0;
+		border-top: 1px solid var(--border-soft);
+		border-bottom: 1px solid var(--border-soft);
+	}
+
+	.profile-loc {
+		font-size: 0.85rem;
+		color: var(--faint);
+		margin: 0 0 0.9rem;
+	}
+
+	.link-list {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.32rem;
+		font-size: 0.88rem;
+		word-break: break-word;
+	}
+
+	.focus-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		justify-content: center;
+		margin-bottom: 1.75rem;
+	}
+
+	.side-block {
+		border-top: 1px solid var(--border-soft);
+		padding-top: 1.2rem;
+	}
+
+	.side-title {
+		font-size: 0.76rem;
+		letter-spacing: 0.09em;
+		text-transform: uppercase;
+		color: var(--faint);
+		margin: 0 0 0.7rem;
+		font-family: var(--font-sans);
+		font-weight: 600;
+	}
+
+	.interest-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem 0.9rem;
+		justify-content: center;
+		font-size: 0.88rem;
+	}
+
+	.interest-list span {
+		color: var(--muted);
+	}
+
+	/* ───────────── 正文通用 ───────────── */
+	.lede {
+		font-size: 1.06rem;
+	}
+
+	.note {
+		color: var(--muted);
+		font-size: 0.94rem;
+		margin-bottom: 0;
+	}
+
+	/* ───────────── News ───────────── */
+	.news-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.news-list li {
+		display: flex;
+		gap: 1rem;
+		padding: 0.85rem 0;
+		border-bottom: 1px solid var(--border-soft);
+	}
+
+	.news-list li:last-child {
+		border-bottom: 0;
+	}
+
+	.news-year {
+		flex: 0 0 3rem;
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--faint);
+		padding-top: 0.22rem;
+	}
+
+	.news-body {
+		display: block;
+		min-width: 0;
+	}
+
+	.news-title {
+		display: block;
+		color: var(--text-strong);
+		line-height: 1.55;
+	}
+
+	.news-venue {
+		display: block;
+		color: var(--muted);
+		font-size: 0.87rem;
+		margin-top: 0.15rem;
+	}
+
+	.news-venue .pill {
+		margin-left: 0.45rem;
+	}
+
+	/* ───────────── Publications ───────────── */
+	.pub-toggle {
+		flex: 0 0 auto;
+	}
+
+	.pub-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.1rem;
+	}
+
+	/* display: grid 会盖掉浏览器默认的 [hidden] { display: none }，
+	   所以折叠时必须显式把它藏起来。 */
+	.pub[hidden] {
+		display: none;
+	}
+
+	.pub {
+		display: grid;
+		grid-template-columns: 210px minmax(0, 1fr);
+		gap: 1.3rem;
+		align-items: start;
+		background: var(--surface);
+		border: 1px solid var(--border-soft);
+		border-radius: var(--radius);
+		box-shadow: var(--shadow-card);
+		padding: 1.15rem;
+		transition:
+			box-shadow 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	.pub:hover {
+		box-shadow: var(--shadow-lift);
+		transform: translateY(-2px);
+	}
+
+	.pub-thumb {
+		background: var(--bg-tint);
+		border: 1px solid var(--border-soft);
+		border-radius: var(--radius-sm);
+		overflow: hidden;
+		aspect-ratio: 16 / 9;
+	}
+
+	.pub-thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.pub-body {
+		min-width: 0;
+	}
+
+	.pub-title {
+		font-size: 1.04rem;
+		margin: 0 0 0.35rem;
+		line-height: 1.42;
+	}
+
+	.pub-authors {
+		font-size: 0.88rem;
+		color: var(--muted);
+		margin: 0 0 0.3rem;
+	}
+
+	.pub-venue {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		font-size: 0.85rem;
+		margin: 0 0 0.5rem;
+	}
+
+	.pub-venue-name {
+		color: var(--accent);
+	}
+
+	.pub-year {
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		color: var(--faint);
+	}
+
+	.pub-desc {
+		font-size: 0.92rem;
+		margin: 0;
+	}
+
+	.pub-links {
+		margin: 0.5rem 0 0;
+		font-size: 0.85rem;
+	}
+
+	/* ───────────── Education ───────────── */
+	.timeline {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.timeline li {
+		position: relative;
+		padding: 0 0 1.5rem 1.35rem;
+		border-left: 1px solid var(--border);
+	}
+
+	.timeline li:last-child {
+		padding-bottom: 0;
+		border-left-color: transparent;
+	}
+
+	.timeline li::before {
+		content: '';
+		position: absolute;
+		left: -4.5px;
+		top: 0.62rem;
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: var(--accent);
+	}
+
+	.timeline-head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.timeline-head h3 {
+		font-size: 1rem;
+		margin: 0;
+	}
+
+	.timeline-org {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.9rem;
+		margin: 0.1rem 0 0.15rem;
+	}
+
+	/* 校徽是深蓝色的，深色模式下底色接近纯黑会糊成一团。所以始终给它白色
+	   圆底：浅色模式下白底几乎隐形、只留一道细边；深色模式下白底把校徽托出来。 */
+	.school-logo {
+		flex: 0 0 auto;
+		width: 30px;
+		height: 30px;
+		object-fit: contain;
+		border-radius: 50%;
+		background: #fff;
+		border: 1px solid var(--border-soft);
+		padding: 2px;
+		box-sizing: border-box;
+	}
+
+	.timeline-desc {
+		color: var(--muted);
+		font-size: 0.88rem;
+		margin: 0;
+	}
+
+	/* ───────────── Honors ───────────── */
+	.honor-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.honor-list li {
+		display: flex;
+		gap: 1rem;
+		padding: 0.62rem 0;
+		border-bottom: 1px solid var(--border-soft);
+	}
+
+	.honor-list li:last-child {
+		border-bottom: 0;
+	}
+
+	.honor-year {
+		flex: 0 0 3rem;
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--faint);
+		padding-top: 0.18rem;
+	}
+
+	.honor-body {
+		display: block;
+	}
+
+	.honor-title {
+		display: block;
+		color: var(--text-strong);
+	}
+
+	.honor-issuer {
+		display: block;
+		color: var(--muted);
+		font-size: 0.86rem;
+	}
+
+	/* ───────────── 响应式 ───────────── */
+	@media (max-width: 900px) {
+		.profile {
+			display: grid;
+			grid-template-columns: 148px minmax(0, 1fr);
+			gap: 0 1.5rem;
+			text-align: left;
+			align-items: start;
+		}
+
+		.avatar {
+			grid-row: 1 / span 6;
+			margin-bottom: 0;
+		}
+
+		.motto {
+			border: 0;
+			padding: 0;
+			margin-bottom: 0.6rem;
+		}
+
+		.focus-tags,
+		.interest-list {
+			justify-content: flex-start;
+		}
+
+		.link-list {
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 0.3rem 1rem;
+		}
+
+		.side-block {
+			grid-column: 1 / -1;
+			margin-top: 1.2rem;
+		}
+	}
+
+	@media (max-width: 620px) {
+		.profile {
+			grid-template-columns: 1fr;
+			text-align: center;
+		}
+
+		.avatar {
+			grid-row: auto;
+			margin: 0 auto 1rem;
+		}
+
+		.link-list,
+		.focus-tags,
+		.interest-list {
+			justify-content: center;
+		}
+
+		.pub {
+			grid-template-columns: 1fr;
+			gap: 0.9rem;
+		}
+
+		.news-list li,
+		.honor-list li {
+			flex-direction: column;
+			gap: 0.15rem;
+		}
+
+		.news-year,
+		.honor-year {
+			flex: none;
+			padding-top: 0;
+		}
+	}
+</style>

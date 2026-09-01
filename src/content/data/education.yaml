@@ -1,0 +1,30 @@
+# 教育经历。文件顺序 = 时间线从上到下的顺序（新的放前面）。
+# logo 是校徽，放在 public/assets/ 下；不填就只显示校名。
+
+- degree:
+    en: Ph.D. Candidate in Computer Science and Engineering
+    zh: 计算机科学与技术 博士研究生
+  school:
+    en: Northwestern Polytechnical University
+    zh: 西北工业大学
+  logo: /assets/logo-nwpu.png
+  year:
+    en: 2024 - Present
+    zh: 2024 至今
+  description:
+    en: "Research focus: Computer Vision."
+    zh: 研究方向：计算机视觉。
+
+- degree:
+    en: B.S. in Mathematics
+    zh: 数学 学士
+  school:
+    en: Northwestern Polytechnical University
+    zh: 西北工业大学
+  logo: /assets/logo-nwpu.png
+  year:
+    en: 2020 - 2024
+    zh: 2020 - 2024
+  description:
+    en: Solid foundation in mathematics.
+    zh: 打下扎实的数学基础。

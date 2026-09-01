@@ -1,0 +1,20 @@
+---
+// 同时渲染中英两份文本，由 CSS 依据 <html data-lang> 显示其中一份。
+// 这样切换语言无需重新请求页面，且禁用 JS 时仍能看到默认语言。
+interface Props {
+	en: string;
+	zh: string;
+	tag?: string;
+	class?: string;
+}
+
+const { en, zh, tag = 'span', class: cls } = Astro.props;
+const Tag = tag as never;
+---
+
+<Tag data-l="en" lang="en" class={cls} set:html={en} /><Tag
+	data-l="zh"
+	lang="zh-CN"
+	class={cls}
+	set:html={zh}
+/>
