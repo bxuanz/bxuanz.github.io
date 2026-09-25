@@ -8,11 +8,13 @@ interface Props {
 	class?: string;
 }
 
-const { en, zh, tag = 'span', class: cls } = Astro.props;
+// Astro 将父组件的作用域样式标记作为额外属性传入；两种语言都需继承。
+const { en, zh, tag = 'span', class: cls, ...attributes } = Astro.props;
 const Tag = tag as never;
 ---
 
-<Tag data-l="en" lang="en" class={cls} set:html={en} /><Tag
+<Tag {...attributes} data-l="en" lang="en" class={cls} set:html={en} /><Tag
+	{...attributes}
 	data-l="zh"
 	lang="zh-CN"
 	class={cls}

@@ -15,6 +15,18 @@
 # 新增一篇：复制下面任意一段（连开头的 - 一起），改内容即可。
 # 标题里含冒号必须加引号。
 
+- title: "StructDiff: A Training-Free Framework for Precise Structural Control in Remote Sensing Image Synthesis"
+  authors: "<strong>B Zhao</strong>, C Yang, Q Zhou, Q Wang"
+  venue: IEEE Transactions on Multimedia (T-MM)
+  venueShort: T-MM
+  year: "2026"
+  status: [first]
+  image: /assets/structdiff.png
+  github: https://github.com/bxuanz/StructDiff
+  description:
+    en: A training-free framework for precise structural control in remote sensing image synthesis, combining multimodal prompt modulation, fixed-timestep structural conditioning, and restart refinement. Accepted by IEEE T-MM.
+    zh: 面向遥感影像合成的免训练精确结构控制框架，结合多模态提示调制、固定时间步结构条件约束与重启细化策略。已被 IEEE T-MM 接收。
+
 - title: "SHARP: Spectrum-aware Highly-dynamic Adaptation for Resolution Promotion in Remote Sensing Synthesis"
   authors: "<strong>B Zhao</strong>, Q Zhou, C Yang, J Gao, Q Wang"
   venue: ACM International Conference on Multimedia (ACM MM)
